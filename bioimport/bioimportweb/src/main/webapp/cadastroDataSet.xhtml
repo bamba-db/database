@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template.xhtml"
+      >
+<ui:define name="conteudo">		
+	
+	<h:form enctype="multipart/form-data" styleClass="form-inline" id="form">
+		<p:growl id="msgs" showDetail="true"/>
+		<div align="right">
+			<p:commandLink title="Adicionar" actionListener="#{dataSetMB.adicionarDataSet()}" update="tabelaDataSet" process="@this">
+				<p:graphicImage library="imagens" name="adicionar.png"/>
+			</p:commandLink>
+		</div>
+		<p:outputPanel id="tabelaDataSet">
+			<p:remoteCommand name="onCellEdit" update=":form:tabelaDataSet" />
+			<p:dataTable id="dataTableDataSet" value="#{dataSetMB.lista}" var="d" editable="true" editMode="cell" widgetVar="cellTable" styleClass="table table-striped">
+				
+				<p:ajax event="cellEdit" listener="#{dataSetMB.onRowEdit}" global="false"/>
+				<p:column headerText="UUID" style="text-align: center;">
+	              <p:cellEditor>
+	                  <f:facet name="output"><h:outputText value="#{d.uuid}" id="uuidOutput"/></f:facet>
+	                  <f:facet name="input">
+	                  	<p:inputText id="uuidInput" value="#{d.uuid}" style="width: 100%;"/>
+
+	                  </f:facet>
+		           </p:cellEditor>
+	          	</p:column>
+				<p:column headerText="Descrição" style="text-align: center;">
+	              <p:cellEditor>
+	                  <f:facet name="output"><h:outputText value="#{d.descricao}" /></f:facet>
+	                  <f:facet name="input"><p:inputText id="descricaoInput" value="#{d.descricao}" style="width: 100%;"/></f:facet>
+		           </p:cellEditor>
+	          	</p:column>
+			
+			</p:dataTable>
+			
+			<p:commandButton value="Processar Importação" action="#{dataSetMB.processarImportacao()}" process="@this"/>	 
+		</p:outputPanel>
+	</h:form>	
+</ui:define>	
+</ui:composition>

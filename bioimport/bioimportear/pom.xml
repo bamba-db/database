@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>br.com.biotecmar</groupId>
+    <artifactId>bioimport</artifactId>
+    <version>1.0.0.0</version>
+  </parent>
+  <artifactId>bioimportear</artifactId>
+  <packaging>ear</packaging>
+  <name>bioimportear</name>
+  <description>EAR do projeto</description>
+  
+  <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>bioimportejb</artifactId>
+            <version>1.0.0.0</version>
+            <type>ejb</type>
+        </dependency>
+         
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>bioimportweb</artifactId>
+            <version>1.0.0.0</version>
+            <type>war</type>
+        </dependency>   
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>  
+        
+    </dependencies>
+  <build>
+  		<finalName>${project.artifactId}</finalName>
+  		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin}</version>
+                <configuration>
+                    <source>${compiler.source}</source>
+                    <target>${compiler.target}</target>
+                    
+                </configuration>
+            </plugin>
+ 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                <defaultLibBundleDir>lib</defaultLibBundleDir>
+                	<modules>
+                    	<ejbModule>
+                        	<groupId>${project.groupId}</groupId>
+                            <artifactId>${modulo.ejb}</artifactId>
+                            <bundleFileName>${modulo.ejb}.jar</bundleFileName>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${modulo.web}</artifactId>
+                            <bundleFileName>${modulo.web}.war</bundleFileName>
+                            <contextRoot>/${modulo.web}</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+  
+</project>

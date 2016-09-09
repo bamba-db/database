@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:upload="http://java.sun.com/jsf/composite/componentes/upload"
+>
+
+<cc:interface>
+	
+</cc:interface>
+
+<cc:implementation>
+	<p:dialog id="revisaoDialog" appendTo="@(body)" closable="true" draggable="false" width="400"
+			resizable="false" widgetVar="revisaoDialog" modal="true" styleClass="revisaoDialogClass">
+			<h:form id="revisaoDialogForm">
+				<div style="float: left;">
+					<p:outputLabel value="Autor: "/>
+					<br/>
+					<p:autoComplete id="autor" forceSelection="true" completeMethod="#{utilMB.completeFuncionario}" 
+										dropdown="true" var="func" itemLabel="#{func.nome}" itemValue="#{func}" converter="funcionarioConverter"
+										minQueryLength="2" value="#{gerenciaFormMB.formulario.autor}" maxlength="100" size="100" styleClass="nomeac"
+										rendered="#{sessaoMB.ator.perfil.sigla eq utilMB.perfilAD.sigla}"/>
+										
+					<h:outputText value="#{sessaoMB.ator.nome}" rendered="#{sessaoMB.ator.perfil.sigla ne utilMB.perfilAD.sigla}"/>	
+					
+				</div>
+				<div style="clear: both;">
+					<br/>
+				</div>
+				<div style="float: left;">
+					<p:outputLabel value="Alteração: "/>
+					<br/>
+					<p:inputTextarea id="alteracaoInput" autoResize="false" maxlength="500" counter="contadorAlteracao" counterTemplate="{0} restantes"
+						value="#{gerenciaFormMB.formulario.alteracaoRevisao}" required="true" requiredMessage="É obrigatório informar a alteração"
+					/>
+					<br/>
+					<p:outputLabel id="contadorAlteracao"/>
+				</div>
+				<div style="clear: both;">
+					<br/>
+				</div>
+				<div style="float: left;">
+					<p:outputLabel value="Justificativa: "/>	
+					<br/>
+					<!--  
+					<p:inputTextarea id="justificativaInput" autoResize="false" maxlength="500" counter="contadorJustificativa" counterTemplate="{0} restantes"
+						value="#{gerenciaFormMB.formulario.justificativaRevisao}" required="true" requiredMessage="É obrigatório informar a justificativa"
+					/>
+					<br/>
+					<p:outputLabel id="contadorJustificativa"/>
+					-->
+					<h:outputText value="#{gerenciaFormMB.formulario.justificativaRevisao}" />
+					
+				</div>
+				<div style="clear: both;">
+					<br/>
+				</div>
+				<div style="float: left;">
+					<p:outputLabel value="Código: "/>	
+					<p:outputLabel value="#{gerenciaFormMB.formulario.codigo}"/>
+				</div>
+				
+				<div style="clear: both;">
+					<br/>
+				</div>
+				<div style="float: left;">
+					<p:outputLabel value="Arquivo: "/>	
+					<upload:upload uploadedFile="#{gerenciaFormMB.uploadedFile}" uploadAction="#{gerenciaFormMB.upload}" 
+						label="Selecione o arquivo" id="uploadRevisao" allowTypes="/(\.|\/)(doc|docx|xls|xlsx)$/"
+					/>
+				</div>
+				<div align="right" style="margin-top: 50px;">
+					<p:commandButton value="Enviar Revisão" action="#{gerenciaFormMB.enviarRevisao()}" />
+				</div>
+			</h:form>
+		</p:dialog>
+</cc:implementation>
+
+</html>

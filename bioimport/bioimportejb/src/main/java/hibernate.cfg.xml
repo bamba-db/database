@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="bioimportejb">
+  <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+  <property name="hibernate.connection.password">biotecmar@123</property>
+  <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/biotecmar</property>
+  <property name="hibernate.connection.username">biotecmar</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  
+   
+	<mapping class="br.com.bioimportejb.entidades.AbioticAnalysi"/>
+	<mapping class="br.com.bioimportejb.entidades.Area"/>
+	<mapping class="br.com.bioimportejb.entidades.Ator"/>
+	<mapping class="br.com.bioimportejb.entidades.BenthicAnalysi"/>
+	<mapping class="br.com.bioimportejb.entidades.BioticAnalysi"/>
+	<mapping class="br.com.bioimportejb.entidades.Contact"/>
+	<mapping class="br.com.bioimportejb.entidades.DataSet"/>
+ 	<mapping class="br.com.bioimportejb.entidades.Email"/>
+	<mapping class="br.com.bioimportejb.entidades.Endereco"/>
+	<mapping class="br.com.bioimportejb.entidades.FishAssemblyAnalysi"/>
+	<mapping class="br.com.bioimportejb.entidades.MetagenomeFunctionalAnalysi"/>
+	<mapping class="br.com.bioimportejb.entidades.MetagenomeFunctionalAnalysiPK"/>
+	<mapping class="br.com.bioimportejb.entidades.MetagenomeTaxonomicAnalysi"/>
+	<mapping class="br.com.bioimportejb.entidades.MetagenomeTaxonomicAnalysiPK"/>
+	<mapping class="br.com.bioimportejb.entidades.MetagenomicAnalysi"/>
+	<mapping class="br.com.bioimportejb.entidades.PaginaContato"/>
+	<mapping class="br.com.bioimportejb.entidades.PosicaoContato"/>
+	<mapping class="br.com.bioimportejb.entidades.ReferenceDb"/>
+	<mapping class="br.com.bioimportejb.entidades.Sample"/>
+	<mapping class="br.com.bioimportejb.entidades.SampleType"/>
+	<mapping class="br.com.bioimportejb.entidades.Taxon"/>
+	<mapping class="br.com.bioimportejb.entidades.Telefone"/>
+  
+ </session-factory>
+</hibernate-configuration>

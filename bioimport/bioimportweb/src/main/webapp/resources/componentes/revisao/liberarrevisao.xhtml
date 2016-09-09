@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:upload="http://java.sun.com/jsf/composite/componentes/upload"
+>
+
+<cc:interface>
+	
+</cc:interface>
+
+<cc:implementation>
+	<p:dialog id="liberarRevisaoDialog" appendTo="@(body)" closable="true" draggable="false" width="400"
+			resizable="false" widgetVar="liberarRevisaoDialog" modal="true" styleClass="liberarRevisaoDialogClass">
+			<h:form id="liberarRevisaoDialogForm">
+				<div style="float: left;">
+					<p:outputLabel value="Autor: "/>
+					<br/>
+					
+					<h:outputText value="#{gerenciaFormMB.solicitacaoRevisao.ator.nome}" />
+					
+				</div>
+			
+				<div style="clear: both;">
+					<br/>
+				</div>
+				<div style="float: left;">
+					<p:outputLabel value="Código: "/>	
+					<p:outputLabel value="#{gerenciaFormMB.solicitacaoRevisao.formulario.codigo}"/>
+				</div>
+				
+				<div style="clear: both;">
+					<br/>
+				</div>
+				
+				<div style="float: left;">
+					<h:panelGroup layout="block" rendered="#{gerenciaFormMB.solicitacaoRevisao.alteracao ne null and gerenciaFormMB.solicitacaoRevisao.alteracao ne ''}">
+						<p:outputLabel value="Alteração: "/>
+						<h:outputText value="#{gerenciaFormMB.solicitacaoRevisao.alteracao}" />
+					</h:panelGroup>
+						<br/>
+						<br/>
+					<h:panelGroup layout="block" rendered="#{gerenciaFormMB.solicitacaoRevisao.justificativa ne null and gerenciaFormMB.solicitacaoRevisao.justificativa ne ''}">
+						<p:outputLabel value="Justificativa:  "/>
+						<h:outputText value="#{gerenciaFormMB.solicitacaoRevisao.justificativa}" />
+					</h:panelGroup>
+				</div>
+				
+				<div style="clear: both;">
+					<br/>
+				</div>
+				
+				<div style="float: left;">
+					<upload:upload uploadedFile="#{gerenciaFormMB.uploadedFile}" uploadAction="#{gerenciaFormMB.upload}" 
+						label="Selecionar arquivo aberto" id="uploadRevisao" allowTypes="/(\.|\/)(doc|docx|xls|xlsx)$/"
+					/>
+				</div>
+				<div align="right" style="margin-top: 50px;">
+					<p:commandButton value="Liberar Revisão" action="#{gerenciaFormMB.liberarRevisao()}" />
+				</div>
+			</h:form>
+		</p:dialog>
+</cc:implementation>
+
+</html>

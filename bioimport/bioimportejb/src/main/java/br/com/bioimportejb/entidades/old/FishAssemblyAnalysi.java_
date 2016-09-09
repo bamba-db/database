@@ -1,0 +1,71 @@
+package br.com.bioimportejb.entidades.old;
+
+import java.io.Serializable;
+import javax.persistence.*;
+
+import java.math.BigDecimal;
+
+
+/**
+ * The persistent class for the fish_assembly_analysis database table.
+ * 
+ */
+@Entity
+@Table(name="biotecmar.fish_assembly_analysis")
+public class FishAssemblyAnalysi implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id 
+	@SequenceGenerator(name="pk_fish_sequence",sequenceName="biotecmar.fish_assembly_analysis_id_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_fish_sequence")
+	@Column(name="id", unique=true, nullable=false)
+	private Integer id;
+
+	private BigDecimal abundance;
+
+	//bi-directional one-to-one association to Sample
+	@ManyToOne
+	@JoinColumn(name="id_sample")
+	private Sample sample;
+
+	//bi-directional many-to-one association to Taxon
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="id_taxon")
+	private Taxon taxon;
+
+	public FishAssemblyAnalysi() {
+	}
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public BigDecimal getAbundance() {
+		return this.abundance;
+	}
+
+	public void setAbundance(BigDecimal abundance) {
+		this.abundance = abundance;
+	}
+
+	public Sample getSample() {
+		return this.sample;
+	}
+
+	public void setSample(Sample sample) {
+		this.sample = sample;
+	}
+
+	public Taxon getTaxon() {
+		return this.taxon;
+	}
+
+	public void setTaxon(Taxon taxon) {
+		this.taxon = taxon;
+	}
+	
+}

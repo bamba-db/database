@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      
+>
+
+<cc:interface>
+	<cc:attribute name="formulario" shortDescription="Formulario para mostrar arquivo"/>	
+	<cc:attribute name="title" default="Visualizar" shortDescription="Title que aparecerá com um hint para informação do usuário"/>
+	
+</cc:interface>
+
+<cc:implementation>
+	
+	<p:commandButton title="#{cc.attrs.title}" rendered="#{cc.attrs.formulario ne null}" 
+		actionListener="#{downloadMB.definirFormPdf(cc.attrs.formulario)}" 
+		process="@this"
+		update="@(.dialogVisualizarClass)"
+		oncomplete="PF('dialogVisualizar').show();"
+		icon="ui-icon-search"
+		/>
+     
+	
+
+</cc:implementation>
+
+</html>

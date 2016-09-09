@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:upload="http://java.sun.com/jsf/composite/componentes/upload"
+>
+
+<cc:interface>
+	
+</cc:interface>
+
+<cc:implementation>
+	<p:dialog id="solRevisaoDialog" appendTo="@(body)" closable="true" draggable="false" width="400"
+			resizable="false" widgetVar="solRevisaoDialog" modal="true" styleClass="solRevisaoDialogClass">
+			<h:form id="solRevisaoDialogForm">
+				<div style="float: left;">
+					<p:outputLabel value="Autor: "/>
+					<br/>
+					
+										
+					<h:outputText value="#{sessaoMB.ator.nome}" />	
+					
+				</div>
+				<div style="clear: both;">
+					<br/>
+				</div>
+				<div style="float: left; display: none;">
+					<!-- 
+					<p:outputLabel value="Alteração: "/>
+					<br/>
+					<p:inputTextarea id="alteracaoInput" autoResize="false" maxlength="500" counter="contadorAlteracao" counterTemplate="{0} restantes"
+						value="#{gerenciaFormMB.solicitacaoRevisao.alteracao}" required="true" requiredMessage="É obrigatório informar a alteração"
+					/>
+					<br/>
+					<p:outputLabel id="contadorAlteracao"/>
+					-->
+				</div>
+				<div style="clear: both;">
+					<br/>
+				</div>
+				<div style="float: left;">
+					<p:outputLabel value="Justificativa: "/>	
+					<br/>
+					<p:inputTextarea id="justificativaInput" autoResize="false" maxlength="500" counter="contadorJustificativa" counterTemplate="{0} restantes"
+						value="#{gerenciaFormMB.solicitacaoRevisao.justificativa}" required="true" requiredMessage="É obrigatório informar a justificativa"
+					/>
+					<br/>
+					<p:outputLabel id="contadorJustificativa"/>
+				</div>
+				<div style="clear: both;">
+					<br/>
+				</div>
+				
+				<div style="float: left;">
+					<p:outputLabel value="Código: "/>	
+					<p:outputLabel value="#{gerenciaFormMB.formulario.codigo}"/>
+				</div>
+				
+				<div style="clear: both;">
+					<br/>
+				</div>
+				
+				<div align="right" style="margin-top: 50px;">
+					<p:commandButton value="Solicitar Liberação para Revisão" action="#{gerenciaFormMB.solLiberacaoRevisao()}" oncomplete="PF('solRevisaoDialog').hide();"/>
+				</div>
+			</h:form>
+		</p:dialog>
+</cc:implementation>
+
+</html>

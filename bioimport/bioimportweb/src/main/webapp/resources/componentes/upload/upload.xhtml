@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      
+>
+
+<cc:interface>
+	<cc:attribute name="uploadAction" method-signature="void upload(org.primefaces.event.FileUploadEvent)" required="true" shortDescription="Método que faz a ação do upload"/>
+	<cc:attribute name="uploadedFile" required="true" shortDescription="Objeto que receberá o arquivo do upload"/>
+	<cc:attribute name="label" default="Selecionar Arquivo" shortDescription="Label do botão para upload do arquivo"/>
+	<cc:attribute name="required" default="false" type="java.lang.Boolean"/>
+	<cc:attribute name="requiredMessage" default="Upload obrigatório" />
+	<cc:attribute name="allowTypes" required="true" />
+	
+</cc:interface>
+
+<cc:implementation>
+	
+	<p:fileUpload fileUploadListener="#{cc.attrs.uploadAction}"  
+									            mode="advanced"   
+									            update="msg-importacao#{cc.id}, arquivo#{cc.id}"  
+									            allowTypes="#{cc.attrs.allowTypes}"
+									            cancelLabel="Cancelar"
+									            label="#{cc.attrs.label}"
+									            multiple="true"
+									            uploadLabel="Enviar" 
+									            auto="true"
+									            required="#{cc.attrs.required}"
+									            requiredMessage="#{cc.attrs.requiredMessage}"
+									            />  
+									  
+									    <p:growl id="msg-importacao#{cc.id}" showDetail="true"/>
+									    
+									
+								  		<div style="margin-top: 2px;"/>
+								  		
+								  		<p:outputPanel id="arquivo#{cc.id}">
+									  		<p:panel header="Arquivo" rendered="#{cc.attrs.uploadedFile != null}">
+									  			<p:row>
+									  				<p:column>
+									  					#{cc.attrs.uploadedFile.fileName}
+									  				</p:column>
+									  				<p:column></p:column>
+									  			</p:row>
+									  		</p:panel>
+								  		</p:outputPanel>
+	
+
+</cc:implementation>
+
+</html>

@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      
+>
+
+<cc:interface>
+	<cc:attribute name="form" required="true" shortDescription="Documento que será revisado" type="br.com.bioimportejb.entidades.Formulario"/>
+	<cc:attribute name="nomeBotao" required="true" />	
+</cc:interface>
+
+<cc:implementation>
+	
+	<p:commandButton value="#{cc.attrs.nomeBotao}" actionListener="#{gerenciaFormMB.definirFormRevisao(cc.attrs.form)}" 
+	oncomplete="PF('revisaoDialog').show()" update="@(.revisaoDialogClass)"/>
+	
+
+</cc:implementation>
+
+</html>

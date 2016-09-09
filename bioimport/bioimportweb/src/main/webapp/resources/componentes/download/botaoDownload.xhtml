@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      
+>
+
+<cc:interface>
+	<cc:attribute name="nomeFisico"/>	
+	<cc:attribute name="title" default="Download" shortDescription="Title que aparecerá com um hint para informação do usuário"/>
+	<cc:attribute name="sigla" required="true"/>
+</cc:interface>
+
+<cc:implementation>
+	
+	<p:commandButton title="#{cc.attrs.title}" ajax="false" icon="ui-icon-arrowthick-1-s" onclick="PrimeFaces.monitorDownload(start, stop);" 
+								rendered="#{cc.attrs.nomeFisico != null and cc.attrs.nomeFisico != ''}" immediate="true">
+        <p:fileDownload value="#{downloadMB.file(cc.attrs.nomeFisico, cc.attrs.sigla)}" />
+    </p:commandButton>
+	
+
+</cc:implementation>
+
+</html>

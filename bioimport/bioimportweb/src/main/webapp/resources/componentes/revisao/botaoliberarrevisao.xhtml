@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      
+>
+
+<cc:interface>
+	<cc:attribute name="solicitacao" required="true" shortDescription="Solicitação que será revisado" type="br.com.bioimportejb.entidades.SolicitacaoRevisao"/>	
+</cc:interface>
+
+<cc:implementation>
+	
+	<p:commandButton value="Liberar Revisão" actionListener="#{gerenciaFormMB.definirSolicitacaoRevisao(cc.attrs.solicitacao)}" 
+	oncomplete="PF('liberarRevisaoDialog').show()" update="@(.liberarRevisaoDialogClass)"/>
+	
+
+</cc:implementation>
+
+</html>

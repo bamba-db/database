@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="bioimportejb">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/bioimportejb</jta-data-source>
+		
+		<class>br.com.bioimportejb.entidades.AbioticAnalysi</class>
+		<class>br.com.bioimportejb.entidades.Area</class>
+		<class>br.com.bioimportejb.entidades.Ator</class>
+		<class>br.com.bioimportejb.entidades.BenthicAnalysi</class>
+		<class>br.com.bioimportejb.entidades.BioticAnalysi</class>
+		<class>br.com.bioimportejb.entidades.Contact</class>
+		<class>br.com.bioimportejb.entidades.DataSet</class>
+		<class>br.com.bioimportejb.entidades.Email</class>
+		<class>br.com.bioimportejb.entidades.Endereco</class>
+		<class>br.com.bioimportejb.entidades.Evento</class>
+		<class>br.com.bioimportejb.entidades.FishAssemblyAnalysi</class>
+		<class>br.com.bioimportejb.entidades.MetagenomeFunctionalAnalysi</class>
+		<class>br.com.bioimportejb.entidades.MetagenomeFunctionalAnalysiPK</class>
+		<class>br.com.bioimportejb.entidades.MetagenomeTaxonomicAnalysi</class>
+		<class>br.com.bioimportejb.entidades.MetagenomeTaxonomicAnalysiPK</class>
+		<class>br.com.bioimportejb.entidades.MetagenomicAnalysi</class>
+		<class>br.com.bioimportejb.entidades.PaginaContato</class>
+		<class>br.com.bioimportejb.entidades.PosicaoContato</class>
+		<class>br.com.bioimportejb.entidades.ReferenceDb</class>
+		<class>br.com.bioimportejb.entidades.Sample</class>
+		<class>br.com.bioimportejb.entidades.SampleType</class>
+		<class>br.com.bioimportejb.entidades.Taxon</class>
+		<class>br.com.bioimportejb.entidades.Telefone</class>
+		
+		<properties>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			
+			<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
+			
+<!-- 			<property name="hibernate.hbm2ddl.auto" value="update"/> -->
+<!-- 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/> -->
+<!-- 			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/biotecmar"/> -->
+			
+<!-- 			<property name="hibernate.connection.username" value="biotecmar"/> -->
+<!-- 			<property name="hibernate.connection.password" value="biotecmar@123"/> -->
+			
+		</properties>
+		
+		
+		
+	</persistence-unit>
+</persistence>

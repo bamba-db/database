@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>br.com.biotecmar</groupId>
+  <artifactId>bioimport</artifactId>
+  <version>1.0.0.0</version>
+  <packaging>pom</packaging>
+  
+  
+  <dependencyManagement>
+  	<dependencies>
+	  	<dependency>
+			<groupId>com.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>3.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.gbif</groupId>
+			<artifactId>gbif-api</artifactId>
+			<version>${gbif-api.version}</version>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.gbif</groupId>
+			<artifactId>gbif-common-ws</artifactId>
+			<version>${gbif-common-ws.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.gbif</groupId>
+			<artifactId>gbif-common-service</artifactId>
+  			<version>0.16</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.gbif</groupId>
+			<artifactId>dwca-reader</artifactId>
+			<version>1.18</version>
+		</dependency>
+		
+		
+  	</dependencies>
+  </dependencyManagement>
+  
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
+    <project.resources.sourceEncoding>${project.build.sourceEncoding}</project.resources.sourceEncoding>
+  	<spring.version>3.2.0.RELEASE</spring.version>
+  	<jsf.version>2.1.7</jsf.version>
+  	<maven.compiler.plugin>2.3.2</maven.compiler.plugin>
+  	<compiler.source>1.6</compiler.source>
+  	<compiler.target>1.6</compiler.target>
+  	<modulo.web>bioimportweb</modulo.web>
+  	<modulo.ejb>bioimportejb</modulo.ejb>
+  	<modulo.ear>bioimportear</modulo.ear>
+  	<gbif-api.version>0.38</gbif-api.version>
+  	<gbif-common-ws.version>0.31</gbif-common-ws.version>
+  	<junit.version>4.12</junit.version>
+  </properties>
+ 
+  <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin}</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+ 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <ejbVersion>3.1</ejbVersion>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-archetype-plugin</artifactId>
+			    <version>2.2</version>
+			    <configuration>
+			        <defaultEncoding>${project.build.sourceEncoding}</defaultEncoding>
+			        <encoding>${project.build.sourceEncoding}</encoding>
+			        <!--  
+			        <archetypeArtifactId>archetype-wsjpa</archetypeArtifactId>
+			        <archetypeGroupId>br.com.example</archetypeGroupId>
+			        <archetypeVersion>1.0</archetypeVersion>
+			        <archetypeFilteredExtentions>java,xml</archetypeFilteredExtentions>
+			        -->
+			    </configuration>
+			</plugin>
+        </plugins>
+    </build>
+   
+    <repositories>
+    <!--
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2</url>
+        </repository>
+ -->
+        <repository>
+            <id>prime-repo</id>
+            <name>Prime Technology Maven Repository</name>
+            <url>http://repository.prime.com.tr</url>
+            <layout>default</layout>
+        </repository>
+       
+	    <repository>
+      		<id>gbif-all</id>
+      		<url>http://repository.gbif.org/content/groups/gbif</url>
+    	</repository>
+	    
+	     <repository>
+      		<id>gbif-central</id>
+      		<url>http://repository.gbif.org/content/repositories/central/</url>
+    	</repository>
+    </repositories>
+    
+  <modules>
+    <module>bioimportear</module>
+    <module>bioimportejb</module>
+    <module>bioimportweb</module>
+  </modules>
+</project>

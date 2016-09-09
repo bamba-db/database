@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      
+>
+
+<cc:interface>
+	
+</cc:interface>
+
+<cc:implementation>
+	
+	<p:dialog id="dialogVisualizar" appendTo="@(body)" widgetVar="dialogVisualizar" styleClass="dialogVisualizarClass" modal="true" resizable="false" draggable="false">
+		<h:form>
+			<p:media cache="false" player="pdf" value="#{downloadMB.pdf}" width="800px" height="550px"/>
+		</h:form>
+	
+	</p:dialog>	
+	
+	
+
+</cc:implementation>
+
+</html>

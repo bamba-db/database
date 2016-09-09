@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+/* Base CSS */
+body {
+	
+}
+
+.panelGridSemBorda tr, .panelGridSemBorda td {
+    border: none !important;
+}
+
+
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+    border-style: none;
+}
+.ui-datatable thead th, .ui-datatable tbody td, .ui-datatable tfoot td {
+    border-style: none;
+}
+
+.dialogDetalhes {
+	z-index: 1060 !important;
+}
+
+

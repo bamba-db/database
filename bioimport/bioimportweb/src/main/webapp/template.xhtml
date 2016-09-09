@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:menu="http://java.sun.com/jsf/composite/componentes/menu"
+      xmlns:componente="http://java.sun.com/jsf/composite/componentes"
+      > 
+
+<h:head>
+		<f:facet name="last">
+			<h:outputStylesheet library="css" name="estilo.css" />
+			<h:outputStylesheet library="bootstrap-3.3.5-dist/css" name="bootstrap.css" />
+			<h:outputStylesheet library="bootstrap-3.3.5-dist/css" name="bootstrap-theme.css" />
+		</f:facet>
+		<h:outputScript library="js" name="locale.js" />
+		<h:outputScript library="bootstrap-3.3.5-dist/js" name="bootstrap.js" />
+		
+		
+		
+</h:head> 
+	
+	<h:body id="body" style="margin: 0px;">
+		<h:panelGroup layout="block" styleClass="container">
+			<componente:cabecalho usuario="#{sessaoMB.ator}" id="cabecalho" />
+				
+				<div style="clear: both; margin-top: 50px; height: 20px;"></div>			
+				
+					<ui:insert name="conteudo">
+			        </ui:insert>
+		        
+		     </h:panelGroup>
+		        <p:dialog modal="true" widgetVar="statusDownload" header="Status" draggable="false" closable="false" resizable="false" style="background: #FFF;">
+				    <p:graphicImage library="imagens" name="aguarde.gif" />
+				</p:dialog>
+				
+				<script type="text/javascript">
+					function start() {
+					    PF('statusDownload').show();
+					}
+					 
+					function stop() {
+					    PF('statusDownload').hide();
+					}
+				</script>
+		    
+		        <p:ajaxStatus onstart="PF('aguarde').show();" onsuccess="PF('aguarde').hide();" oncomplete="PF('aguarde').hide();" onerror="PF('aguarde').hide();" />
+		        
+		        <p:dialog modal="true" widgetVar="aguarde" draggable="false" header="Aguarde" resizable="false" closable="false" appendTo="@(body)" 
+		        	style="font-size:12px; text-align: center; background-color: #FFF;" >
+					<p:graphicImage library="imagens" name="aguarde.gif" width="50px" />
+				</p:dialog>
+				
+				<p:dialog appendTo="@(body)" modal="true" widgetVar="redirecionarPagina" header="Aguarde enquanto redirecionamos..." 
+				style="font-size:12px; text-align:center;background-color: #FFF;"
+				      draggable="false" closable="false" resizable="false" id="redirecionar"  >  
+				           <p:graphicImage library="imagens" name="aguarde.gif"  
+				             style="width: 49px!important; height: 50px!important;"  />
+				</p:dialog>
+				
+				<p:dialog id="dialogErro" header="Erro" widgetVar="dialogErro" appendTo="@(body)" visible="#{!empty facesContext.messageList}" closable="true" style="background: #FFF;">
+					<p:messages id="mensagemErro" autoUpdate="true"/>
+				</p:dialog>
+
+
+	</h:body> 
+</ui:component>
