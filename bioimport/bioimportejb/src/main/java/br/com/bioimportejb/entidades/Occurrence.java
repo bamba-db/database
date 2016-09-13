@@ -24,9 +24,9 @@ import org.hibernate.annotations.ForeignKey;
  * 
  */
 @Entity
-@Table(name="biotecmar.fish_assembly_analysis")
+@Table(name="biotecmar.occurrence")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class FishAssemblyAnalysi implements Serializable {
+public class Occurrence implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id 
@@ -52,8 +52,11 @@ public class FishAssemblyAnalysi implements Serializable {
 	@JoinColumn(name="id_evento", referencedColumnName="id_evento")
 	@ForeignKey(name="FK_FISH_EVENTO")
 	private Evento evento;
+	
+	@Column(name="occurrence_id")
+	private String occurrenceId;
 
-	public FishAssemblyAnalysi() {
+	public Occurrence() {
 	}
 
 	public Integer getId() {
@@ -95,5 +98,40 @@ public class FishAssemblyAnalysi implements Serializable {
 	public void setEvento(Evento evento) {
 		this.evento = evento;
 	}
+
+	public String getOccurrenceId() {
+		return occurrenceId;
+	}
+
+	public void setOccurrenceId(String occurrenceId) {
+		this.occurrenceId = occurrenceId;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Occurrence other = (Occurrence) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 	
+	
+
 }

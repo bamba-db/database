@@ -75,9 +75,9 @@ public class Sample implements Serializable {
 	//bi-directional one-to-one association to FishAssemblyAnalysi
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="sample", cascade=CascadeType.ALL)
-	private List<FishAssemblyAnalysi> fishAssemblyAnalysi = new ArrayList<FishAssemblyAnalysi>();
+	private List<Occurrence> fishAssemblyAnalysi = new ArrayList<Occurrence>();
 
-	public boolean addFishAssemblyAnalysi(FishAssemblyAnalysi arg0) {
+	public boolean addFishAssemblyAnalysi(Occurrence arg0) {
 		return fishAssemblyAnalysi.add(arg0);
 	}
 
@@ -181,11 +181,11 @@ public class Sample implements Serializable {
 		this.bioticAnalysi = bioticAnalysi;
 	}
 
-	public List<FishAssemblyAnalysi> getFishAssemblyAnalysi() {
+	public List<Occurrence> getFishAssemblyAnalysi() {
 		return fishAssemblyAnalysi;
 	}
 
-	public void setFishAssemblyAnalysi(List<FishAssemblyAnalysi> fishAssemblyAnalysi) {
+	public void setFishAssemblyAnalysi(List<Occurrence> fishAssemblyAnalysi) {
 		this.fishAssemblyAnalysi = fishAssemblyAnalysi;
 	}
 

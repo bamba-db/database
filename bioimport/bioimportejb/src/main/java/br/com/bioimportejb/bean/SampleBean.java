@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 import org.gbif.api.vocabulary.DatasetType;
 
 import br.com.bioimportejb.dao.SampleDAO;
-import br.com.bioimportejb.entidades.FishAssemblyAnalysi;
+import br.com.bioimportejb.entidades.Occurrence;
 import br.com.bioimportejb.entidades.Sample;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
 import br.com.daofabrica.excecoes.ExcecaoGenerica;
@@ -42,7 +42,7 @@ public class SampleBean implements Serializable {
 		try {
 			List<Sample> samplesGravados = new ArrayList<Sample>();
 			for(Sample s : lista) {
-				for(FishAssemblyAnalysi f: s.getFishAssemblyAnalysi()) {
+				for(Occurrence f: s.getFishAssemblyAnalysi()) {
 					f.setSample(s);
 				}
 				samplesGravados.add(getSampleDAO().mesclar(s));
@@ -74,6 +74,14 @@ public class SampleBean implements Serializable {
 	public Sample buscarPorId(Long id) throws ExcecaoIntegracao {
 		try {
 			return getSampleDAO().buscarPorId(id);
+		} catch (ExcecaoGenerica e) {
+			throw new ExcecaoIntegracao(e);
+		}
+	}
+
+	public Sample salvar(Sample sample) throws ExcecaoIntegracao {
+		try {
+			return getSampleDAO().mesclar(sample);
 		} catch (ExcecaoGenerica e) {
 			throw new ExcecaoIntegracao(e);
 		}

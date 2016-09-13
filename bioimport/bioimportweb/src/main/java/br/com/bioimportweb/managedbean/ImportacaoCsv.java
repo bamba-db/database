@@ -30,7 +30,7 @@ import com.opencsv.CSVReader;
 
 import br.com.bioimportejb.bean.SampleBean;
 import br.com.bioimportejb.bean.interfaces.TaxonLocal;
-import br.com.bioimportejb.entidades.FishAssemblyAnalysi;
+import br.com.bioimportejb.entidades.Occurrence;
 import br.com.bioimportejb.entidades.Sample;
 import br.com.bioimportejb.entidades.Taxon;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
@@ -150,7 +150,7 @@ public class ImportacaoCsv implements Serializable {
 					if(aux != null) {
 						sample = aux;
 					}
-					FishAssemblyAnalysi f = new FishAssemblyAnalysi();
+					Occurrence f = new Occurrence();
 			    	
 			    	/**
 			    	 * Sistema recupera o taxonkey da linha corrente

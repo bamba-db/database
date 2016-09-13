@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="evento")
+@Table(name="biotecmar.evento")
 public class Evento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -61,7 +61,7 @@ public class Evento implements Serializable {
 	private String footprintWKT;
 	
 	@OneToMany(mappedBy="evento")
-	private List<FishAssemblyAnalysi> analysis;
+	private List<Occurrence> analysis;
 
 	public Long getIdEvento() {
 		return idEvento;
@@ -169,11 +169,11 @@ public class Evento implements Serializable {
 	}
 	
 
-	public List<FishAssemblyAnalysi> getAnalysis() {
+	public List<Occurrence> getAnalysis() {
 		return analysis;
 	}
 
-	public void setAnalysis(List<FishAssemblyAnalysi> analysis) {
+	public void setAnalysis(List<Occurrence> analysis) {
 		this.analysis = analysis;
 	}
 

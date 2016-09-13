@@ -17,7 +17,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import br.com.bioimportejb.bean.SampleBean;
-import br.com.bioimportejb.entidades.FishAssemblyAnalysi;
+import br.com.bioimportejb.entidades.Occurrence;
 import br.com.bioimportejb.entidades.Sample;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
 
@@ -39,7 +39,7 @@ public class MapaMB implements Serializable {
 
 	private JsonArray listaJson;
 	
-	private List<FishAssemblyAnalysi> fishes;
+	private List<Occurrence> fishes;
 	
 	public JsonArray getListaJson() {
 		return listaJson;
@@ -62,7 +62,7 @@ public class MapaMB implements Serializable {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			j.addProperty("data", sdf.format(s.getDt()));
 			JsonArray array = new JsonArray();
-			for(FishAssemblyAnalysi f: s.getFishAssemblyAnalysi()) {
+			for(Occurrence f: s.getFishAssemblyAnalysi()) {
 				JsonObject fo = new JsonObject();
 				fo.addProperty("family", f.getTaxon().getFamily());
 				fo.addProperty("genus", f.getTaxon().getGenus());
@@ -96,11 +96,11 @@ public class MapaMB implements Serializable {
 		this.samples = samples;
 	}
 	
-	public List<FishAssemblyAnalysi> getFishes() {
+	public List<Occurrence> getFishes() {
 		return fishes;
 	}
 
-	public void setFishes(List<FishAssemblyAnalysi> fishes) {
+	public void setFishes(List<Occurrence> fishes) {
 		this.fishes = fishes;
 	}
 	

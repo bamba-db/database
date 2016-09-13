@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+      template="/template.xhtml"
+      >
+<ui:define name="conteudo">		
+
+<h:head>
+	<style type="text/css">
+		
+		@media screen and (max-width: 768px) {
+		td {
+			display: block;
+		}
+}
+
+		.tabelaDataTable table {
+			.table !important;	
+			.table-responsive !important;
+		}
+	</style>
+</h:head>
+	  <h:form enctype="multipart/form-data" styleClass="form-inline">
+		 
+		 	  
+			<br/>	
+			<br/>
+   	   		<p:fileUpload
+   	   		mode="advanced"   
+			cancelLabel="Cancelar"
+            label="Selecionar Arquivo"
+            multiple="true"
+            uploadLabel="Enviar" 
+            auto="true"
+   	   		fileUploadListener="#{importacaoZipMB.upload}"
+   	   		onstart="start();"
+   	   		oncomplete="stop();"
+   	   		update="@form" 
+   	   		rendered="#{importacaoZipMB.file eq null}"
+   	   		/>
+		   
+		   <h:outputText id="arquivoImportado" value="#{importacaoZipMB.file.fileName}" rendered="#{importacaoZipMB.file ne null}"/>
+		   <p:spacer width="10"/>
+		   <h:commandButton id="botaoImportar" rendered="#{importacaoZipMB.file ne null}" value="Importar" ajax="false" 
+		   	actionListener="#{importacaoZipMB.importar()}" styleClass="btn btn-default" update="divTabelaSamples, tabelaSamples, :dialogErro" process="@this"/>
+		    
+		   <h:panelGroup id="divTabelaSamples" layout="block" styleClass="table-responsive">
+			   <h:dataTable rendered="#{! empty importacaoZipMB.listaSamples}" id="tabelaSamples" value="#{importacaoZipMB.listaSamples}" var="sample" styleClass="table table-striped">
+			   		<p:column headerText="Latitude" >
+			   			<f:facet name="header">Latitude</f:facet>
+			   			<h:outputText value="#{sample.latitude}" />
+			   		</p:column>
+			   		
+			   		<p:column headerText="Longitude">
+			   			<f:facet name="header">Longitude</f:facet>
+			   			<h:outputText value="#{sample.longitude}" />
+			   		</p:column>
+			   		
+			   		<p:column headerText="Profundidade">
+			   			<f:facet name="header">Profundidade</f:facet>
+			   			<h:outputText value="#{sample.depth}" />
+			   		</p:column>
+			   </h:dataTable> 
+		   </h:panelGroup>
+		   
+		</h:form>	
+</ui:define>	
+</ui:composition>

@@ -50,13 +50,16 @@ import com.opencsv.CSVReader;
 import br.com.bioimportejb.bean.SampleBean;
 import br.com.bioimportejb.bean.interfaces.DataSetLocal;
 import br.com.bioimportejb.bean.interfaces.EventoLocal;
+import br.com.bioimportejb.bean.interfaces.MeasurementFactsLocal;
+import br.com.bioimportejb.bean.interfaces.OccurrenceLocal;
 import br.com.bioimportejb.bean.interfaces.TaxonLocal;
 import br.com.bioimportejb.entidades.DataSet;
 import br.com.bioimportejb.entidades.Email;
 import br.com.bioimportejb.entidades.Endereco;
 import br.com.bioimportejb.entidades.Evento;
-import br.com.bioimportejb.entidades.FishAssemblyAnalysi;
 import br.com.bioimportejb.entidades.GeospatialCoverage;
+import br.com.bioimportejb.entidades.MeasurementFacts;
+import br.com.bioimportejb.entidades.Occurrence;
 import br.com.bioimportejb.entidades.PaginaContato;
 import br.com.bioimportejb.entidades.PosicaoContato;
 import br.com.bioimportejb.entidades.Sample;
@@ -66,6 +69,7 @@ import br.com.bioimportejb.entidades.TemporalCoverage;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
 import br.com.bioimportejb.util.ChaveSampleVO;
 import br.com.bioimportejb.util.ChaveTaxonVO;
+import br.com.bioimportweb.util.SampleOcorrenceVO;
 import br.com.bioimportweb.util.Util;
 
 public class GbifUtils implements Serializable {
@@ -73,6 +77,10 @@ public class GbifUtils implements Serializable {
 	private static final String FILE_EVENT = "event.txt";
 
 	private static final String FILE_OCCURRENCE = "occurrence.txt";
+	
+	private static final String FILE_MEASUREMENT_OR_FACTS_1 = "measurementorfact.txt";
+	private static final String FILE_MEASUREMENT_OR_FACTS_2 = "extendedmeasurementorfact.txt";
+	
 
 	private static final String ARQ_TMP_PROP = "/arquivosTemporarios.properties";
 
@@ -93,12 +101,17 @@ public class GbifUtils implements Serializable {
 	
 	private TaxonLocal taxonLocal;
 	
-	public Collection<Sample> montarSamples(Archive arq, DataSet dataset, Map<String, Evento> eventos) throws ExcecaoIntegracao {
+	public SampleOcorrenceVO montarSamples(Archive arq, DataSet dataset, Map<String, Evento> eventos) throws ExcecaoIntegracao {
 		CSVReader reader = null;
 		Map<ChaveSampleVO, Sample> samples = new HashMap<ChaveSampleVO, Sample>();
+		Map<String, Occurrence> ocorrencias = new HashMap<String, Occurrence>();
 		try {
+			SampleBean sampleBean = (SampleBean ) 
+					new InitialContext().lookup("java:global/bioimportear/bioimportejb/SampleBean");
 			taxonLocal = (TaxonLocal) 
 					new InitialContext().lookup("java:global/bioimportear/bioimportejb/TaxonBean");
+			OccurrenceLocal occurrenceLocal = (OccurrenceLocal) 
+					new InitialContext().lookup("java:global/bioimportear/bioimportejb/OccurrenceBean");
 			 Iterator<Record> iterator = arq.getCore().iterator();
 			 while (iterator.hasNext()) {
 				 	Record r = iterator.next();
@@ -142,7 +155,7 @@ public class GbifUtils implements Serializable {
 						}
 					}
 					
-					if(dataSample == null) {
+					if(dataSample == null && dataset != null) {
 						dataSample = dataset.getDataAlt().getTime();
 					}
 					sample.setDt(dataSample);
@@ -152,13 +165,13 @@ public class GbifUtils implements Serializable {
 					if(aux != null) {
 						sample = aux;
 					}
-					FishAssemblyAnalysi f = new FishAssemblyAnalysi();
+					Occurrence o = new Occurrence();
 					
 					if(eventos != null) {
 						if(arq.getCore().hasTerm(DwcTerm.eventID)) {
 							String eventId = r.value(DwcTerm.eventID);
 							if(eventId != null) {
-								f.setEvento(eventos.get(eventId));
+								o.setEvento(eventos.get(eventId));
 							}
 						}
 					}
@@ -252,11 +265,20 @@ public class GbifUtils implements Serializable {
 				    	
 				    	dTaxon = taxonLocal.salvar(dTaxon);
 			    	} 
-			    	f.setTaxon(dTaxon);
-			    	f.setSample(sample);
+			    	o.setTaxon(dTaxon);
 			    	
-			    	sample.addFishAssemblyAnalysi(f);
+			    	if(arq.getCore().hasTerm(DwcTerm.occurrenceID)) {
+			    		o.setOccurrenceId(r.value(DwcTerm.occurrenceID));
+			    	}
+			    	
+			    	o = occurrenceLocal.salvarOccurrence(o);
+			    	o.setSample(sample);
+			    	sample.addFishAssemblyAnalysi(o);
 			    	samples.put(chave, sample);
+			    	 
+			    	o.setSample(sample);
+			    	
+			    	ocorrencias.put(o.getOccurrenceId(), o);
 			 }
 		} catch (NamingException e1) {
 			log.error(e1.getMessage(), e1);
@@ -273,7 +295,11 @@ public class GbifUtils implements Serializable {
 				}
 			}
 		}
-		return samples.values();  
+		
+		SampleOcorrenceVO sampleOcorrenceVO = new SampleOcorrenceVO();
+		sampleOcorrenceVO.setSamples(samples.values());
+		sampleOcorrenceVO.setOcorrencias(ocorrencias);
+		return sampleOcorrenceVO;  
 	}
 	private Date dataCsv(String[] linha) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -319,7 +345,7 @@ public class GbifUtils implements Serializable {
 				converterDataSet(dataset, data, datasetSistema);
 				datasetLocal.salvar(datasetSistema);
 				if (endPointDwcArquive != null && endPointDwcArquive.getUrl() != null) {
-					processaZip(endPointDwcArquive.getUrl().toURL(), datasetSistema);
+					processaZipPorUrl(endPointDwcArquive.getUrl().toURL(), datasetSistema);
 				}
 			}
 		} catch (NamingException e1) {
@@ -476,7 +502,7 @@ public class GbifUtils implements Serializable {
 		datasetSistema.setContatos(contatos);
 	}
 	
-	public void processaZip(URL url, DataSet dataset) throws ExcecaoIntegracao {
+	public void processaZipPorUrl(URL url, DataSet dataset) throws ExcecaoIntegracao {
 	    
 	    try {
 	    	String diretorioTmp = getProp().getProperty("diretorio.temporario");
@@ -515,7 +541,7 @@ public class GbifUtils implements Serializable {
 	        
 	       
 	        
-			Collection<Sample> samples = montarSamples(arq, dataset, eventos);
+			Collection<Sample> samples = montarSamples(arq, dataset, eventos).getSamples();
 			gravarSamples(samples);
 			
 			new File(nomeDiretorio).delete();
@@ -526,6 +552,146 @@ public class GbifUtils implements Serializable {
 		}
 	}
 	
+    public Collection<Sample> processaZip(InputStream in) throws ExcecaoIntegracao {
+	    
+	    try {
+	    	String diretorioTmp = getProp().getProperty("diretorio.temporario");
+	        String nomeDiretorio = diretorioTmp;
+	        
+	        File f = new File(nomeDiretorio);
+	        if(!f.exists()) {
+	        	f.mkdirs();
+	        }
+	        
+			String nomeArquivo = nomeDiretorio + File.separator + Calendar.getInstance().getTimeInMillis();
+			String nomeZip = nomeArquivo + ".zip";
+			FileOutputStream out = new FileOutputStream(nomeZip);
+	        byte[] b = new byte[1024];
+	        int count;
+	        while ((count = in.read(b)) >= 0) {
+	            out.write(b, 0, count);
+	        }
+	        out.flush(); out.close(); in.close();    
+	        
+	        unZipIt(nomeZip, nomeArquivo, diretorioTmp);
+	        
+	        Map<String, Evento> eventos = null;
+	        File fileEventos = new File(nomeArquivo + File.separator + FILE_EVENT);
+	        if(fileEventos.exists()) {
+		        Archive arqEventos = ArchiveFactory.openArchive(fileEventos);
+		        eventos = montarEventos(arqEventos);
+		        
+	        }
+	        
+	        File fileOcorrencias = new File(nomeArquivo + File.separator + FILE_OCCURRENCE);
+	        
+	        Archive arq = ArchiveFactory.openArchive(fileOcorrencias);
+	        
+	       
+	        
+			SampleOcorrenceVO sampleOcurrenceVO = montarSamples(arq, null, eventos);
+			if(sampleOcurrenceVO == null) {
+				sampleOcurrenceVO = new SampleOcorrenceVO();
+			}
+			Collection<Sample> samples = sampleOcurrenceVO.getSamples();
+			gravarSamples(samples);
+			
+			
+			Map<String, List<MeasurementFacts>> medidas = null;
+	        File fileMedidas = new File(nomeArquivo + File.separator + FILE_MEASUREMENT_OR_FACTS_1);
+	        if(fileMedidas.exists()) {
+	        	
+		        Archive arqMedidas = ArchiveFactory.openArchive(fileMedidas);
+		        medidas = montarMedidas(arqMedidas, eventos, sampleOcurrenceVO.getOcorrencias());
+	        } else {
+	        	fileMedidas = new File(nomeArquivo + File.separator + FILE_MEASUREMENT_OR_FACTS_2);
+	        	if(fileMedidas.exists()) {
+		        	Archive arqMedidas = ArchiveFactory.openArchive(fileMedidas);
+		        	medidas = montarMedidas(arqMedidas, eventos, sampleOcurrenceVO.getOcorrencias());
+	        	}
+	        }
+			
+			new File(nomeDiretorio).delete();
+	        
+			return samples;
+	    } catch (IOException e) {
+	        log.error(e.getMessage(), e);
+	        throw new ExcecaoIntegracao(e);
+		}
+	}
+	
+	private Map<String, List<MeasurementFacts>> montarMedidas(Archive arq, Map<String, Evento> eventos,
+			Map<String, Occurrence> ocorrencias) throws ExcecaoIntegracao {
+		CSVReader reader = null;
+		Map<String, List<MeasurementFacts>> medidas = new HashMap<String, List<MeasurementFacts>>();
+		try {
+			MeasurementFactsLocal measurementFactsLocal = (MeasurementFactsLocal) 
+					new InitialContext().lookup("java:global/bioimportear/bioimportejb/MeasurementFactsBean");
+			 Iterator<Record> iterator = arq.getCore().iterator();
+			 while (iterator.hasNext()) {
+				 	Record r = iterator.next();
+					MeasurementFacts m = new MeasurementFacts();
+					String eventId = r.id();
+					
+					Evento e = eventos.get(eventId);
+					
+					List<MeasurementFacts> listaM = medidas.get(eventId);
+					if(listaM == null) {
+						listaM = new ArrayList<MeasurementFacts>();
+					}
+					
+					m.setEventId(eventId);
+					m.setEvento(e);
+					
+					if(arq.getCore().hasTerm(DwcTerm.measurementID)) { 
+						m.setMeasurementID(r.value(DwcTerm.measurementID));
+					}
+					
+					if(arq.getCore().hasTerm(DwcTerm.measurementType)) { 
+						m.setMeasurementType(r.value(DwcTerm.measurementType));
+					}
+					
+					if(arq.getCore().hasTerm("measurementTypeID")) { 
+						m.setMeasurementTypeID(r.value("measurementTypeID"));
+					}
+					
+					if(arq.getCore().hasTerm(DwcTerm.measurementUnit)) { 
+						m.setMeasurementUnit(r.value(DwcTerm.measurementUnit));
+					}
+					
+					if(arq.getCore().hasTerm("measurementUnitID")) { 
+						m.setMeasurementUnitID("measurementUnitID");
+					}
+					
+					if(arq.getCore().hasTerm(DwcTerm.measurementValue)) { 
+						m.setMeasurementValue(r.value(DwcTerm.measurementValue));
+					}
+					
+					if(arq.getCore().hasTerm(DwcTerm.occurrenceID)) { 
+						m.setOccurrenceID(r.value(DwcTerm.occurrenceID));
+						Occurrence occurrence = ocorrencias.get(m.getOccurrenceID());
+						m.setOccurrence(occurrence);
+					}
+					
+					
+					m = measurementFactsLocal.salvarMedida(m);
+					listaM.add(m);
+			    	medidas.put(eventId, listaM);
+			 }
+		} catch (NamingException e1) {
+			log.error(e1.getMessage(), e1);
+			throw new ExcecaoIntegracao(e1);
+		} finally {
+			if(reader != null) {
+				try {
+					reader.close();
+				} catch (IOException e) {
+					throw new ExcecaoIntegracao(e);
+				}
+			}
+		}
+		return medidas;  
+	}
 	private Map<String, Evento> montarEventos(Archive arq) throws ExcecaoIntegracao {
 		CSVReader reader = null;
 		Map<String, Evento> eventos = new HashMap<String, Evento>();
@@ -576,11 +742,17 @@ public class GbifUtils implements Serializable {
 					}
 					
 					if(arq.getCore().hasTerm(DwcTerm.decimalLatitude)) { 
-						evento.setDecimalLatitude(new BigDecimal(r.value(DwcTerm.decimalLatitude)));
+						String valor = r.value(DwcTerm.decimalLatitude);
+						if(valor != null) {
+							evento.setDecimalLatitude(new BigDecimal(valor));
+						}
 					}
 					
 					if(arq.getCore().hasTerm(DwcTerm.decimalLongitude)) { 
-						evento.setDecimalLongitude(new BigDecimal(r.value(DwcTerm.decimalLongitude)));
+						String valor = r.value(DwcTerm.decimalLongitude);
+						if(valor != null) {
+							evento.setDecimalLongitude(new BigDecimal(valor));
+						}
 					}
 					
 					if(arq.getCore().hasTerm(DwcTerm.geodeticDatum)) { 
