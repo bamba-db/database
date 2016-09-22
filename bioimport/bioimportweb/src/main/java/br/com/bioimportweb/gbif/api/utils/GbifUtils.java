@@ -42,6 +42,8 @@ import org.gbif.dwc.record.Record;
 import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.text.Archive;
 import org.gbif.dwc.text.ArchiveFactory;
+import org.gbif.registry.metadata.parse.DatasetParser;
+import org.gbif.utils.file.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,6 +87,8 @@ public class GbifUtils implements Serializable {
 	private static final String ARQ_TMP_PROP = "/arquivosTemporarios.properties";
 
 	private static final long serialVersionUID = 5552011572435565843L;
+
+	private static final String FILE_EML = "eml.xml";
 
 	private Properties prop;
 	
@@ -271,14 +275,16 @@ public class GbifUtils implements Serializable {
 			    		o.setOccurrenceId(r.value(DwcTerm.occurrenceID));
 			    	}
 			    	
-			    	o = occurrenceLocal.salvarOccurrence(o);
-			    	o.setSample(sample);
-			    	sample.addFishAssemblyAnalysi(o);
-			    	samples.put(chave, sample);
-			    	 
-			    	o.setSample(sample);
 			    	
+			    	o.setSample(sample);
+			    	//sample.addFishAssemblyAnalysi(o);
+			    	samples.put(chave, sample);
+			    	sample = sampleBean.salvar(sample);
+			    	
+			    	o.setSample(sample);
+			    	o = occurrenceLocal.salvarOccurrence(o);
 			    	ocorrencias.put(o.getOccurrenceId(), o);
+			    	
 			 }
 		} catch (NamingException e1) {
 			log.error(e1.getMessage(), e1);
@@ -575,6 +581,15 @@ public class GbifUtils implements Serializable {
 	        
 	        unZipIt(nomeZip, nomeArquivo, diretorioTmp);
 	        
+	        String caminhoEml = nomeArquivo + File.separator + FILE_EML;
+	        
+	        Dataset d=DatasetParser.build(new FileInputStream(new File(caminhoEml)));
+	        DataSet datasetSistema = new DataSet();
+	        converterDataSet(d, Calendar.getInstance(), datasetSistema);
+	        DataSetLocal datasetLocal = (DataSetLocal) 
+					new InitialContext().lookup("java:global/bioimportear/bioimportejb/DataSetBean");
+	        datasetSistema = datasetLocal.salvar(datasetSistema);
+	        
 	        Map<String, Evento> eventos = null;
 	        File fileEventos = new File(nomeArquivo + File.separator + FILE_EVENT);
 	        if(fileEventos.exists()) {
@@ -585,17 +600,19 @@ public class GbifUtils implements Serializable {
 	        
 	        File fileOcorrencias = new File(nomeArquivo + File.separator + FILE_OCCURRENCE);
 	        
-	        Archive arq = ArchiveFactory.openArchive(fileOcorrencias);
-	        
+	        SampleOcorrenceVO sampleOcurrenceVO = null;
+	        if(fileEventos.exists()) {
+	        	Archive arq = ArchiveFactory.openArchive(fileOcorrencias);
+	        	sampleOcurrenceVO = montarSamples(arq, datasetSistema, eventos);
+				if(sampleOcurrenceVO == null) {
+					sampleOcurrenceVO = new SampleOcorrenceVO();
+				}
+				Collection<Sample> samples = sampleOcurrenceVO.getSamples();
+	        }
 	       
 	        
-			SampleOcorrenceVO sampleOcurrenceVO = montarSamples(arq, null, eventos);
-			if(sampleOcurrenceVO == null) {
-				sampleOcurrenceVO = new SampleOcorrenceVO();
-			}
-			Collection<Sample> samples = sampleOcurrenceVO.getSamples();
-			gravarSamples(samples);
 			
+			//gravarSamples(samples);
 			
 			Map<String, List<MeasurementFacts>> medidas = null;
 	        File fileMedidas = new File(nomeArquivo + File.separator + FILE_MEASUREMENT_OR_FACTS_1);
@@ -613,9 +630,12 @@ public class GbifUtils implements Serializable {
 			
 			new File(nomeDiretorio).delete();
 	        
-			return samples;
+			return sampleOcurrenceVO.getSamples();
 	    } catch (IOException e) {
 	        log.error(e.getMessage(), e);
+	        throw new ExcecaoIntegracao(e);
+		} catch (NamingException e) {
+			log.error(e.getMessage(), e);
 	        throw new ExcecaoIntegracao(e);
 		}
 	}

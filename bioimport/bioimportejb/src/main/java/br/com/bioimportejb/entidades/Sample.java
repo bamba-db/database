@@ -73,7 +73,6 @@ public class Sample implements Serializable {
 	private BioticAnalysi bioticAnalysi;
 
 	//bi-directional one-to-one association to FishAssemblyAnalysi
-	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="sample", cascade=CascadeType.ALL)
 	private List<Occurrence> fishAssemblyAnalysi = new ArrayList<Occurrence>();
 

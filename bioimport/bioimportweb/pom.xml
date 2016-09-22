@@ -10,6 +10,13 @@
   <name>${project.artifactId}</name>
   <description>Módulo WEB do projeto</description>
   <packaging>war</packaging>
+  
+  <repositories>
+    <repository>
+      <id>gbif-all</id>
+      <url>http://repository.gbif.org/content/groups/gbif</url>
+    </repository>
+  </repositories>
   <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -204,6 +211,13 @@
 			
 		</dependency>
 		
+		<dependency>
+    		<groupId>org.gbif.registry</groupId>
+    		<artifactId>registry-metadata</artifactId>
+  			<version>2.50-SNAPSHOT</version>
+  		</dependency>
+
+  
 		
     </dependencies>
  
