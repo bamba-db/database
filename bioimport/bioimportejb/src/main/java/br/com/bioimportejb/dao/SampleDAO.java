@@ -11,5 +11,7 @@ public interface SampleDAO extends DAOGenerico<Sample, Long>{
 	List<Sample> listarSamplesOcorrencia(String string) throws ExcecaoGenerica;
 
 	List<Sample> listarSamplesEvent(String name) throws ExcecaoGenerica;
+
+	List<Sample> listarTodos() throws ExcecaoGenerica;
 	
 }

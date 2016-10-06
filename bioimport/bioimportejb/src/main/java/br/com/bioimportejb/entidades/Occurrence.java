@@ -51,6 +51,7 @@ public class Occurrence implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_evento", referencedColumnName="id_evento")
 	@ForeignKey(name="FK_FISH_EVENTO")
+	@XmlTransient
 	private Evento evento;
 	
 	@Column(name="occurrence_id")

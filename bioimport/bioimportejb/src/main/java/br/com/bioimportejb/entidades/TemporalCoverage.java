@@ -10,9 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name="biotecmar.temporal_coverage")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TemporalCoverage implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +31,7 @@ public class TemporalCoverage implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="id_dataset", referencedColumnName="id_dataset")
+	@XmlTransient
 	private DataSet dataSet;
 
 	public Long getId() {

@@ -13,15 +13,13 @@
 package br.com.bioimportejb.entidades;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,12 +27,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.gbif.api.vocabulary.ContactType;
-import org.gbif.api.vocabulary.Country;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name="biotecmar.contact")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Contact implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -56,25 +55,25 @@ public class Contact implements Serializable {
 	private String lastName;
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_contato", referencedColumnName="id_contato")
-	private List<PosicaoContato> position = new ArrayList<PosicaoContato>();
+	private Set<PosicaoContato> position = new LinkedHashSet<PosicaoContato>();
 	private String description;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_contato", referencedColumnName="id_contato")
-	private List<Email> email = new ArrayList<Email>();
+	private Set<Email> email = new LinkedHashSet<Email>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_contato", referencedColumnName="id_contato")
-	private List<Telefone> phone = new ArrayList<Telefone>();
+	private Set<Telefone> phone = new LinkedHashSet<Telefone>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_contato", referencedColumnName="id_contato")
-	private List<PaginaContato> homepage = new ArrayList<PaginaContato>();
+	private Set<PaginaContato> homepage = new LinkedHashSet<PaginaContato>();
 	private String organization;
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_contato", referencedColumnName="id_contato")
-	private List<Endereco> address = new ArrayList<Endereco>();
+	private Set<Endereco> address = new LinkedHashSet<Endereco>();
 	
 	private String city;
 	private String province;
@@ -88,6 +87,7 @@ public class Contact implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="id_dataset", referencedColumnName="id_dataset")
+	@XmlTransient
 	private DataSet dataSet;
 
 	public Long getId() {
@@ -138,11 +138,11 @@ public class Contact implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public List<PosicaoContato> getPosition() {
+	public Set<PosicaoContato> getPosition() {
 		return position;
 	}
 
-	public void setPosition(List<PosicaoContato> position) {
+	public void setPosition(Set<PosicaoContato> position) {
 		this.position = position;
 	}
 
@@ -154,27 +154,27 @@ public class Contact implements Serializable {
 		this.description = description;
 	}
 
-	public List<Email> getEmail() {
+	public Set<Email> getEmail() {
 		return email;
 	}
 
-	public void setEmail(List<Email> email) {
+	public void setEmail(Set<Email> email) {
 		this.email = email;
 	}
 
-	public List<Telefone> getPhone() {
+	public Set<Telefone> getPhone() {
 		return phone;
 	}
 
-	public void setPhone(List<Telefone> phone) {
+	public void setPhone(Set<Telefone> phone) {
 		this.phone = phone;
 	}
 
-	public List<PaginaContato> getHomepage() {
+	public Set<PaginaContato> getHomepage() {
 		return homepage;
 	}
 
-	public void setHomepage(List<PaginaContato> homepage) {
+	public void setHomepage(Set<PaginaContato> homepage) {
 		this.homepage = homepage;
 	}
 
@@ -186,11 +186,11 @@ public class Contact implements Serializable {
 		this.organization = organization;
 	}
 
-	public List<Endereco> getAddress() {
+	public Set<Endereco> getAddress() {
 		return address;
 	}
 
-	public void setAddress(List<Endereco> address) {
+	public void setAddress(Set<Endereco> address) {
 		this.address = address;
 	}
 

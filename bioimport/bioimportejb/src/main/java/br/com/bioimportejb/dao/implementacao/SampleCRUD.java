@@ -79,4 +79,37 @@ public class SampleCRUD extends CRUDGenerico<Sample, Long> implements SampleDAO,
 		}
 	}
 	
+	@Override
+	public List<Sample> listarTodos() throws ExcecaoGenerica {
+		try {
+			StringBuilder hql = new StringBuilder();
+			hql.append("select s from Sample as s ");
+			hql.append(" left join fetch s.abioticAnalysi as abioticAnalysi ");
+			hql.append(" left join fetch s.benthicAnalysi as benthicAnalysi ");
+			hql.append(" left join fetch s.bioticAnalysi as bioticAnalysi ");
+			hql.append(" left join fetch s.metagenomicAnalysi as metagenomicAnalysi ");
+			hql.append(" left join fetch s.sampleType as sampleType ");
+			hql.append(" left join fetch s.dataSet as dataSet ");
+			hql.append(" left join fetch s.fishAssemblyAnalysi as fishAssemblyAnalysi ");
+			hql.append(" left join fetch fishAssemblyAnalysi.evento as evento ");
+			hql.append(" left join fetch evento.analysis as analysis ");
+			hql.append(" left join fetch fishAssemblyAnalysi.taxon as taxon ");
+			hql.append(" left join fetch dataSet.geographicCoverages as geographicCoverages ");
+			hql.append(" left join fetch dataSet.contatos as contatos ");
+			hql.append(" left join fetch dataSet.temporalCoverages as temporalCoverages ");
+			hql.append(" left join fetch contatos.position as position ");
+			hql.append(" left join fetch contatos.email as email ");
+			hql.append(" left join fetch contatos.phone as phone");
+			hql.append(" left join fetch contatos.homepage as homepage ");
+			hql.append(" left join fetch contatos.address as address ");
+			
+			hql.append(" order by s.dt ")	;
+			Query query = criarQuery(hql.toString());
+			return query.list();
+		} catch (HibernateException e) {
+			logger.error(e.getMessage());
+			throw new ExcecaoGenerica(e);
+		}
+	}
+	
 }

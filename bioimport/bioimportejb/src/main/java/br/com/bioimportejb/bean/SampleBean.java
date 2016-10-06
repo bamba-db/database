@@ -53,6 +53,14 @@ public class SampleBean implements Serializable {
 		}
 	}
 
+	public List<Sample> listarSamples() throws ExcecaoIntegracao {
+		try {
+			return getSampleDAO().listarTodos();
+		} catch (Exception e) {
+			throw new ExcecaoIntegracao(e);
+		}
+	}
+	
 	public List<Sample> listarSamplesOcorrencia() throws ExcecaoIntegracao {
 		try {
 			return getSampleDAO().listarSamplesOcorrencia(DatasetType.OCCURRENCE.name());

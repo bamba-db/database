@@ -19,9 +19,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 @Entity
 @Table(name="biotecmar.dataset")
+@XmlRootElement
 public class DataSet implements Serializable{
 
 	private static final long serialVersionUID = 9001669138067445925L;
@@ -37,7 +41,7 @@ public class DataSet implements Serializable{
 	private String descricao;
 	
 	@OneToMany(mappedBy="dataSet", cascade=CascadeType.ALL)
-	private List<Contact> contatos;
+	private Set<Contact> contatos;
 	
 	@Column(name="data_alt")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -120,7 +124,7 @@ public class DataSet implements Serializable{
 	private Set<GeospatialCoverage> geographicCoverages = new LinkedHashSet<GeospatialCoverage>();
 	
 	@OneToMany(mappedBy="dataSet", cascade=CascadeType.ALL)
-	private List<TemporalCoverage> temporalCoverages = new ArrayList<TemporalCoverage>();
+	private Set<TemporalCoverage> temporalCoverages = new LinkedHashSet<TemporalCoverage>();
 	
 	public String getUuid() {
 		
@@ -182,11 +186,11 @@ public class DataSet implements Serializable{
 		return true;
 	}
 
-	public List<Contact> getContatos() {
+	public Set<Contact> getContatos() {
 		return contatos;
 	}
 
-	public void setContatos(List<Contact> contatos) {
+	public void setContatos(Set<Contact> contatos) {
 		this.contatos = contatos;
 	}
 
@@ -398,11 +402,11 @@ public class DataSet implements Serializable{
 		this.geographicCoverages = geographicCoverages;
 	}
 
-	public List<TemporalCoverage> getTemporalCoverages() {
+	public Set<TemporalCoverage> getTemporalCoverages() {
 		return temporalCoverages;
 	}
 
-	public void setTemporalCoverages(List<TemporalCoverage> temporalCoverages) {
+	public void setTemporalCoverages(Set<TemporalCoverage> temporalCoverages) {
 		this.temporalCoverages = temporalCoverages;
 	}
 	

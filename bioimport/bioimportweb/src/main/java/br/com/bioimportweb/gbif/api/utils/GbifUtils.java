@@ -43,7 +43,6 @@ import org.gbif.dwc.terms.DwcTerm;
 import org.gbif.dwc.text.Archive;
 import org.gbif.dwc.text.ArchiveFactory;
 import org.gbif.registry.metadata.parse.DatasetParser;
-import org.gbif.utils.file.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -362,7 +361,7 @@ public class GbifUtils implements Serializable {
 		datasetSistema.setAbbreviation(dataset.getAbbreviation());
 		datasetSistema.setAdditionalInfo(dataset.getAdditionalInfo());
 		datasetSistema.setAlias(dataset.getAlias());
-		ArrayList<br.com.bioimportejb.entidades.Contact> contatos = new ArrayList<br.com.bioimportejb.entidades.Contact>();
+		Set<br.com.bioimportejb.entidades.Contact> contatos = new LinkedHashSet<br.com.bioimportejb.entidades.Contact>();
 		
 		converterContatos(dataset, datasetSistema, contatos);
 		datasetSistema.setCreated(dataset.getCreated());
@@ -402,7 +401,7 @@ public class GbifUtils implements Serializable {
 		if (dataset.getSubtype() != null) {
 			datasetSistema.setSubtype(dataset.getSubtype().name());
 		}
-		ArrayList<TemporalCoverage> temporalCoverages = new ArrayList<TemporalCoverage>();
+		Set<TemporalCoverage> temporalCoverages = new LinkedHashSet<TemporalCoverage>();
 		for(org.gbif.api.model.registry.eml.temporal.TemporalCoverage t : dataset.getTemporalCoverages()) {
 			Collection<String> keywords = t.toKeywords();
 			StringBuilder tempWords = new StringBuilder();
@@ -444,10 +443,10 @@ public class GbifUtils implements Serializable {
 		datasetSistema.setGeographicCoverages(geographicCoverages);
 	}
 	private void converterContatos(Dataset dataset, DataSet datasetSistema,
-			ArrayList<br.com.bioimportejb.entidades.Contact> contatos) {
+			Set<br.com.bioimportejb.entidades.Contact> contatos) {
 		for(Contact c : dataset.getContacts()) {
 			br.com.bioimportejb.entidades.Contact contact = new br.com.bioimportejb.entidades.Contact();
-			ArrayList<Endereco> address = new ArrayList<br.com.bioimportejb.entidades.Endereco>();
+			Set<Endereco> address = new LinkedHashSet<br.com.bioimportejb.entidades.Endereco>();
 			for(String a : c.getAddress()) {
 				Endereco e = new Endereco();
 				e.setEndereco(a);
@@ -462,7 +461,7 @@ public class GbifUtils implements Serializable {
 			contact.setCreatedBy(c.getCreatedBy());
 			contact.setDataSet(datasetSistema);
 			contact.setDescription(c.getDescription());
-			ArrayList<Email> emails = new ArrayList<Email>();
+			Set<Email> emails = new LinkedHashSet<Email>();
 			for(String e : c.getEmail()) {
 				Email email = new Email();
 				email.setEmail(e);
@@ -470,7 +469,7 @@ public class GbifUtils implements Serializable {
 			}
 			contact.setEmail(emails);
 			contact.setFirstName(c.getFirstName());
-			ArrayList<PaginaContato> paginasContato = new ArrayList<PaginaContato>();
+			Set<PaginaContato> paginasContato = new LinkedHashSet<PaginaContato>();
 			for(URI hpage : c.getHomepage()) {
 				PaginaContato pc = new PaginaContato();
 				pc.setPagina(hpage.toString());
@@ -482,14 +481,14 @@ public class GbifUtils implements Serializable {
 			contact.setModified(c.getModified());
 			contact.setModifiedBy(c.getModifiedBy());
 			contact.setOrganization(c.getOrganization());
-			ArrayList<Telefone> telefones = new ArrayList<Telefone>();
+			Set<Telefone> telefones = new LinkedHashSet<Telefone>();
 			for(String t : c.getPhone()) {
 				Telefone tel = new Telefone();
 				tel.setTelefone(t);
 				telefones.add(tel);
 			}
 			contact.setPhone(telefones);
-			ArrayList<PosicaoContato> posicoesContato = new ArrayList<PosicaoContato>();
+			Set<PosicaoContato> posicoesContato = new LinkedHashSet<PosicaoContato>();
 			for(String pos : c.getPosition()) {
 				PosicaoContato posicao = new PosicaoContato();
 				posicao.setPosicao(pos);

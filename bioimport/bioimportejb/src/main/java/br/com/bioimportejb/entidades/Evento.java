@@ -3,7 +3,7 @@ package br.com.bioimportejb.entidades;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -61,7 +61,7 @@ public class Evento implements Serializable {
 	private String footprintWKT;
 	
 	@OneToMany(mappedBy="evento")
-	private List<Occurrence> analysis;
+	private Set<Occurrence> analysis;
 
 	public Long getIdEvento() {
 		return idEvento;
@@ -169,11 +169,11 @@ public class Evento implements Serializable {
 	}
 	
 
-	public List<Occurrence> getAnalysis() {
+	public Set<Occurrence> getAnalysis() {
 		return analysis;
 	}
 
-	public void setAnalysis(List<Occurrence> analysis) {
+	public void setAnalysis(Set<Occurrence> analysis) {
 		this.analysis = analysis;
 	}
 
