@@ -23,9 +23,10 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 
 /**
@@ -60,32 +61,37 @@ public class Sample implements Serializable {
 	//bi-directional one-to-one association to AbioticAnalysi
 	@OneToOne(mappedBy="sample")
 	@XmlInverseReference(mappedBy="sample")
+	@JsonIgnore
 	private AbioticAnalysi abioticAnalysi;
 
 	//bi-directional one-to-one association to BenthicAnalysi
 	@OneToOne(mappedBy="sample")
 	@XmlTransient
+	@JsonIgnore
 	private BenthicAnalysi benthicAnalysi;
 
 	//bi-directional one-to-one association to BioticAnalysi
 	@OneToOne(mappedBy="sample")
 	@XmlTransient
+	@JsonIgnore
 	private BioticAnalysi bioticAnalysi;
 
-	//bi-directional one-to-one association to FishAssemblyAnalysi
+	//bi-directional one-to-one association to Occurrences
 	@OneToMany(mappedBy="sample", cascade=CascadeType.ALL)
-	private List<Occurrence> fishAssemblyAnalysi = new ArrayList<Occurrence>();
+	@JsonManagedReference
+	private List<Occurrence> occurrences = new ArrayList<Occurrence>();
 
-	public boolean addFishAssemblyAnalysi(Occurrence arg0) {
-		return fishAssemblyAnalysi.add(arg0);
+	public boolean addOccurrences(Occurrence arg0) {
+		return occurrences.add(arg0);
 	}
 
-	public boolean removeFishAssemblyAnalysi(Object arg0) {
-		return fishAssemblyAnalysi.remove(arg0);
+	public boolean removeOccurrences(Object arg0) {
+		return occurrences.remove(arg0);
 	}
 
 	//bi-directional one-to-one association to MetagenomicAnalysi
 	@OneToOne(mappedBy="sample")
+	@JsonIgnore
 	private MetagenomicAnalysi metagenomicAnalysi;
 
 	//bi-directional many-to-one association to SampleType
@@ -95,6 +101,7 @@ public class Sample implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="id_dataset", referencedColumnName="id_dataset")
+	@JsonManagedReference
 	private DataSet dataSet;
 
 	public Sample() {
@@ -180,12 +187,12 @@ public class Sample implements Serializable {
 		this.bioticAnalysi = bioticAnalysi;
 	}
 
-	public List<Occurrence> getFishAssemblyAnalysi() {
-		return fishAssemblyAnalysi;
+	public List<Occurrence> getOccurrences() {
+		return occurrences;
 	}
 
-	public void setFishAssemblyAnalysi(List<Occurrence> fishAssemblyAnalysi) {
-		this.fishAssemblyAnalysi = fishAssemblyAnalysi;
+	public void setOccurrences(List<Occurrence> occurrences) {
+		this.occurrences = occurrences;
 	}
 
 	public MetagenomicAnalysi getMetagenomicAnalysi() {

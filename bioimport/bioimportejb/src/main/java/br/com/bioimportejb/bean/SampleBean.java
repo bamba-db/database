@@ -15,6 +15,7 @@ import br.com.bioimportejb.dao.SampleDAO;
 import br.com.bioimportejb.entidades.Occurrence;
 import br.com.bioimportejb.entidades.Sample;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
+import br.com.bioimportejb.util.FiltroSampleVO;
 import br.com.daofabrica.excecoes.ExcecaoGenerica;
 import br.com.daofabrica.fabrica.DAOFabrica;
 import br.com.daofabrica.fabrica.DAOFabricaImpl;
@@ -42,7 +43,7 @@ public class SampleBean implements Serializable {
 		try {
 			List<Sample> samplesGravados = new ArrayList<Sample>();
 			for(Sample s : lista) {
-				for(Occurrence f: s.getFishAssemblyAnalysi()) {
+				for(Occurrence f: s.getOccurrences()) {
 					f.setSample(s);
 				}
 				samplesGravados.add(getSampleDAO().mesclar(s));
@@ -53,9 +54,9 @@ public class SampleBean implements Serializable {
 		}
 	}
 
-	public List<Sample> listarSamples() throws ExcecaoIntegracao {
+	public List<Sample> listarSamples(FiltroSampleVO filtro) throws ExcecaoIntegracao {
 		try {
-			return getSampleDAO().listarTodos();
+			return getSampleDAO().listarTodos(filtro);
 		} catch (Exception e) {
 			throw new ExcecaoIntegracao(e);
 		}

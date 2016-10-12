@@ -62,7 +62,7 @@ public class MapaMB implements Serializable {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			j.addProperty("data", sdf.format(s.getDt()));
 			JsonArray array = new JsonArray();
-			for(Occurrence f: s.getFishAssemblyAnalysi()) {
+			for(Occurrence f: s.getOccurrences()) {
 				JsonObject fo = new JsonObject();
 				fo.addProperty("family", f.getTaxon().getFamily());
 				fo.addProperty("genus", f.getTaxon().getGenus());
@@ -84,7 +84,7 @@ public class MapaMB implements Serializable {
 		String index = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("index");
 		if (index != null && !"".equals(index)) {
 			Sample sample = samples.get(Integer.valueOf(index));
-			fishes = sample.getFishAssemblyAnalysi();
+			fishes = sample.getOccurrences();
 		}
 	}
 

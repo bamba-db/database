@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name="biotecmar.temporal_coverage")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -32,6 +34,7 @@ public class TemporalCoverage implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_dataset", referencedColumnName="id_dataset")
 	@XmlTransient
+	@JsonIgnore
 	private DataSet dataSet;
 
 	public Long getId() {

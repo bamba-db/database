@@ -61,7 +61,7 @@ public class Evento implements Serializable {
 	private String footprintWKT;
 	
 	@OneToMany(mappedBy="evento")
-	private Set<Occurrence> analysis;
+	private Set<Occurrence> occurrences;
 
 	public Long getIdEvento() {
 		return idEvento;
@@ -169,12 +169,12 @@ public class Evento implements Serializable {
 	}
 	
 
-	public Set<Occurrence> getAnalysis() {
-		return analysis;
+	public Set<Occurrence> getOccurrences() {
+		return occurrences;
 	}
 
-	public void setAnalysis(Set<Occurrence> analysis) {
-		this.analysis = analysis;
+	public void setAnalysis(Set<Occurrence> occurrences) {
+		this.occurrences = occurrences;
 	}
 
 	@Override

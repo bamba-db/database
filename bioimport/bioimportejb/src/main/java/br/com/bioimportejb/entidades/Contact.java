@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name="biotecmar.contact")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -88,6 +90,7 @@ public class Contact implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_dataset", referencedColumnName="id_dataset")
 	@XmlTransient
+	@JsonIgnore
 	private DataSet dataSet;
 
 	public Long getId() {

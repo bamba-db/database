@@ -276,7 +276,7 @@ public class GbifUtils implements Serializable {
 			    	
 			    	
 			    	o.setSample(sample);
-			    	//sample.addFishAssemblyAnalysi(o);
+			    	//sample.addOccurrences(o);
 			    	samples.put(chave, sample);
 			    	sample = sampleBean.salvar(sample);
 			    	

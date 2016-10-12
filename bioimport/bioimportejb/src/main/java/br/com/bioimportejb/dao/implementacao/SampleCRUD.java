@@ -12,6 +12,7 @@ import org.hibernate.criterion.Order;
 
 import br.com.bioimportejb.dao.SampleDAO;
 import br.com.bioimportejb.entidades.Sample;
+import br.com.bioimportejb.util.FiltroSampleVO;
 import br.com.daofabrica.crud.CRUDGenerico;
 import br.com.daofabrica.excecoes.ExcecaoGenerica;
 
@@ -38,7 +39,7 @@ public class SampleCRUD extends CRUDGenerico<Sample, Long> implements SampleDAO,
 			
 			lista = criteria.list();
 			for(Sample s : lista) {
-				s.getFishAssemblyAnalysi().size();
+				s.getOccurrences().size();
 			}
 			return lista;
 		} catch (HibernateException e) {
@@ -80,20 +81,20 @@ public class SampleCRUD extends CRUDGenerico<Sample, Long> implements SampleDAO,
 	}
 	
 	@Override
-	public List<Sample> listarTodos() throws ExcecaoGenerica {
+	public List<Sample> listarTodos(FiltroSampleVO filtro) throws ExcecaoGenerica {
 		try {
 			StringBuilder hql = new StringBuilder();
-			hql.append("select s from Sample as s ");
+			hql.append("select distinct s from Sample as s ");
 			hql.append(" left join fetch s.abioticAnalysi as abioticAnalysi ");
 			hql.append(" left join fetch s.benthicAnalysi as benthicAnalysi ");
 			hql.append(" left join fetch s.bioticAnalysi as bioticAnalysi ");
 			hql.append(" left join fetch s.metagenomicAnalysi as metagenomicAnalysi ");
 			hql.append(" left join fetch s.sampleType as sampleType ");
 			hql.append(" left join fetch s.dataSet as dataSet ");
-			hql.append(" left join fetch s.fishAssemblyAnalysi as fishAssemblyAnalysi ");
-			hql.append(" left join fetch fishAssemblyAnalysi.evento as evento ");
-			hql.append(" left join fetch evento.analysis as analysis ");
-			hql.append(" left join fetch fishAssemblyAnalysi.taxon as taxon ");
+			hql.append(" left join fetch s.occurrences as occurrences ");
+			hql.append(" left join fetch occurrences.evento as evento ");
+			hql.append(" left join fetch evento.occurrences as occurrences_evento ");
+			hql.append(" left join fetch occurrences.taxon as taxon ");
 			hql.append(" left join fetch dataSet.geographicCoverages as geographicCoverages ");
 			hql.append(" left join fetch dataSet.contatos as contatos ");
 			hql.append(" left join fetch dataSet.temporalCoverages as temporalCoverages ");
@@ -103,8 +104,50 @@ public class SampleCRUD extends CRUDGenerico<Sample, Long> implements SampleDAO,
 			hql.append(" left join fetch contatos.homepage as homepage ");
 			hql.append(" left join fetch contatos.address as address ");
 			
-			hql.append(" order by s.dt ")	;
+			hql.append(" where 1 = 1 ");
+			if(filtro.getId() != null) {
+				hql.append(" and s.id = :id ");
+			}
+			
+			if(filtro.getDepth() != null) {
+				hql.append(" and s.depth = :depth ");
+			}
+			
+			if(filtro.getDt() != null) {
+				hql.append(" and s.dt = :dt ");
+			}
+			
+			if(filtro.getLatitude() != null) {
+				hql.append(" and s.latitude = :latitude ");
+			}
+			
+			if(filtro.getLongitude() != null) {
+				hql.append(" and s.longitude = :longitude ");
+			}
+			
+			hql.append(" order by s.dt ");
 			Query query = criarQuery(hql.toString());
+			
+			if(filtro.getId() != null) {
+				query.setParameter("id", filtro.getId());
+			}
+			
+			if(filtro.getDepth() != null) {
+				query.setParameter("depth", filtro.getDepth());
+			}
+			
+			if(filtro.getDt() != null) {
+				query.setParameter("dt", filtro.getDt());
+			}
+			
+			if(filtro.getLatitude() != null) {
+				query.setParameter("latitude", filtro.getLatitude());
+			}
+			
+			if(filtro.getLongitude() != null) {
+				query.setParameter("longitude", filtro.getLongitude());
+			}
+			
 			return query.list();
 		} catch (HibernateException e) {
 			logger.error(e.getMessage());

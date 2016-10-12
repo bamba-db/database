@@ -227,7 +227,7 @@ public class ImportacaoCsv implements Serializable {
 			    	f.setTaxon(dTaxon);
 			    	f.setSample(sample);
 			    	
-			    	sample.addFishAssemblyAnalysi(f);
+			    	sample.addOccurrences(f);
 			    	samples.put(chave, sample);
 				}
 				count ++;

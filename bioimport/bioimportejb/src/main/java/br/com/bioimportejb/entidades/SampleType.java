@@ -1,8 +1,14 @@
 package br.com.bioimportejb.entidades;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 
 /**
@@ -19,6 +25,7 @@ public class SampleType implements Serializable {
 
 	//bi-directional many-to-one association to Sample
 	@OneToMany(mappedBy="sampleType")
+	@JsonManagedReference
 	private List<Sample> samples;
 
 	public SampleType() {

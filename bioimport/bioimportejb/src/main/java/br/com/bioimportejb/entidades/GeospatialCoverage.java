@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 @Table(name="biotecmar.geospatial_coverage")
 @XmlRootElement
@@ -46,6 +48,7 @@ public class GeospatialCoverage implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_dataset", referencedColumnName="id_dataset")
 	@XmlTransient
+	@JsonIgnore
 	private DataSet dataSet;
 	
 

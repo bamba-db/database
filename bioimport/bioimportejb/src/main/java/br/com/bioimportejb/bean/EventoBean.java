@@ -1,6 +1,7 @@
 package br.com.bioimportejb.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -11,6 +12,7 @@ import br.com.bioimportejb.bean.interfaces.EventoLocal;
 import br.com.bioimportejb.dao.EventoDAO;
 import br.com.bioimportejb.entidades.Evento;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
+import br.com.bioimportejb.util.FiltroEventoVO;
 import br.com.daofabrica.excecoes.ExcecaoGenerica;
 import br.com.daofabrica.fabrica.DAOFabrica;
 import br.com.daofabrica.fabrica.DAOFabricaImpl;
@@ -51,6 +53,15 @@ public class EventoBean implements EventoLocal, Serializable{
 			} else {
 				return getEventoDAO().mesclar(evento);
 			}
+		} catch (ExcecaoGenerica e) {
+			throw new ExcecaoIntegracao(e);
+		}
+	}
+
+	@Override
+	public List<Evento> listarEventos(FiltroEventoVO filtro) throws ExcecaoIntegracao {
+		try {
+			return getEventoDAO().listarEventos(filtro);
 		} catch (ExcecaoGenerica e) {
 			throw new ExcecaoIntegracao(e);
 		}

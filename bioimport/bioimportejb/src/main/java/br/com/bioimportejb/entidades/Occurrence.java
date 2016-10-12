@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
 import org.hibernate.annotations.ForeignKey;
 
 
@@ -41,6 +42,7 @@ public class Occurrence implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_sample")
 	@XmlTransient
+	@JsonBackReference
 	private Sample sample;
 
 	//bi-directional many-to-one association to Taxon
@@ -52,6 +54,7 @@ public class Occurrence implements Serializable {
 	@JoinColumn(name="id_evento", referencedColumnName="id_evento")
 	@ForeignKey(name="FK_FISH_EVENTO")
 	@XmlTransient
+	@JsonBackReference
 	private Evento evento;
 	
 	@Column(name="occurrence_id")

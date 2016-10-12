@@ -21,6 +21,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 @Entity
@@ -41,6 +42,7 @@ public class DataSet implements Serializable{
 	private String descricao;
 	
 	@OneToMany(mappedBy="dataSet", cascade=CascadeType.ALL)
+	@JsonIgnore
 	private Set<Contact> contatos;
 	
 	@Column(name="data_alt")
