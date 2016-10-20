@@ -4,11 +4,11 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<jta-data-source>java:/bioimportejb</jta-data-source>
 		
-		<class>br.com.bioimportejb.entidades.AbioticAnalysi</class>
+<!-- 		<class>br.com.bioimportejb.entidades.AbioticAnalysi</class> -->
 		<class>br.com.bioimportejb.entidades.Area</class>
 		<class>br.com.bioimportejb.entidades.Ator</class>
-		<class>br.com.bioimportejb.entidades.BenthicAnalysi</class>
-		<class>br.com.bioimportejb.entidades.BioticAnalysi</class>
+<!-- 		<class>br.com.bioimportejb.entidades.BenthicAnalysi</class> -->
+<!-- 		<class>br.com.bioimportejb.entidades.BioticAnalysi</class> -->
 		<class>br.com.bioimportejb.entidades.Contact</class>
 		<class>br.com.bioimportejb.entidades.DataSet</class>
 		<class>br.com.bioimportejb.entidades.Email</class>
@@ -16,16 +16,16 @@
 		<class>br.com.bioimportejb.entidades.Evento</class>
 		<class>br.com.bioimportejb.entidades.Occurrence</class>
 		<class>br.com.bioimportejb.entidades.MeasurementFacts</class>
-		<class>br.com.bioimportejb.entidades.MetagenomeFunctionalAnalysi</class>
-		<class>br.com.bioimportejb.entidades.MetagenomeFunctionalAnalysiPK</class>
-		<class>br.com.bioimportejb.entidades.MetagenomeTaxonomicAnalysi</class>
-		<class>br.com.bioimportejb.entidades.MetagenomeTaxonomicAnalysiPK</class>
-		<class>br.com.bioimportejb.entidades.MetagenomicAnalysi</class>
+<!-- 		<class>br.com.bioimportejb.entidades.MetagenomeFunctionalAnalysi</class> -->
+<!-- 		<class>br.com.bioimportejb.entidades.MetagenomeFunctionalAnalysiPK</class> -->
+<!-- 		<class>br.com.bioimportejb.entidades.MetagenomeTaxonomicAnalysi</class> -->
+<!-- 		<class>br.com.bioimportejb.entidades.MetagenomeTaxonomicAnalysiPK</class> -->
+<!-- 		<class>br.com.bioimportejb.entidades.MetagenomicAnalysi</class> -->
 		<class>br.com.bioimportejb.entidades.PaginaContato</class>
 		<class>br.com.bioimportejb.entidades.PosicaoContato</class>
-		<class>br.com.bioimportejb.entidades.ReferenceDb</class>
-		<class>br.com.bioimportejb.entidades.Sample</class>
-		<class>br.com.bioimportejb.entidades.SampleType</class>
+<!-- 		<class>br.com.bioimportejb.entidades.ReferenceDb</class> -->
+<!-- 		<class>br.com.bioimportejb.entidades.Sample</class> -->
+<!-- 		<class>br.com.bioimportejb.entidades.SampleType</class> -->
 		<class>br.com.bioimportejb.entidades.Taxon</class>
 		<class>br.com.bioimportejb.entidades.Telefone</class>
 		
@@ -35,7 +35,7 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			
 			<property name="hibernate.temp.use_jdbc_metadata_defaults" value="false" />
-<!-- 			<property name="hibernate.hbm2ddl.auto" value="update"/> -->
+<!-- 			<property name="hibernate.hbm2ddl.auto" value="create"/> -->
 <!-- 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/> -->
 <!-- 			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/biotecmar"/> -->
 			

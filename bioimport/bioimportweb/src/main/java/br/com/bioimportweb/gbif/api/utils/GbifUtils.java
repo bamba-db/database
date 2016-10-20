@@ -48,7 +48,6 @@ import org.slf4j.LoggerFactory;
 
 import com.opencsv.CSVReader;
 
-import br.com.bioimportejb.bean.SampleBean;
 import br.com.bioimportejb.bean.interfaces.DataSetLocal;
 import br.com.bioimportejb.bean.interfaces.EventoLocal;
 import br.com.bioimportejb.bean.interfaces.MeasurementFactsLocal;
@@ -63,14 +62,13 @@ import br.com.bioimportejb.entidades.MeasurementFacts;
 import br.com.bioimportejb.entidades.Occurrence;
 import br.com.bioimportejb.entidades.PaginaContato;
 import br.com.bioimportejb.entidades.PosicaoContato;
-import br.com.bioimportejb.entidades.Sample;
 import br.com.bioimportejb.entidades.Taxon;
 import br.com.bioimportejb.entidades.Telefone;
 import br.com.bioimportejb.entidades.TemporalCoverage;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
-import br.com.bioimportejb.util.ChaveSampleVO;
+import br.com.bioimportejb.util.ChaveEventoVO;
 import br.com.bioimportejb.util.ChaveTaxonVO;
-import br.com.bioimportweb.util.SampleOcorrenceVO;
+import br.com.bioimportweb.util.EventoOcorrenceVO;
 import br.com.bioimportweb.util.Util;
 
 public class GbifUtils implements Serializable {
@@ -104,13 +102,13 @@ public class GbifUtils implements Serializable {
 	
 	private TaxonLocal taxonLocal;
 	
-	public SampleOcorrenceVO montarSamples(Archive arq, DataSet dataset, Map<String, Evento> eventos) throws ExcecaoIntegracao {
+	public EventoOcorrenceVO montarEventos(Archive arq, DataSet dataset, Map<String, Evento> eventos) throws ExcecaoIntegracao {
 		CSVReader reader = null;
-		Map<ChaveSampleVO, Sample> samples = new HashMap<ChaveSampleVO, Sample>();
+		Map<ChaveEventoVO, Evento> eventosChave = new HashMap<ChaveEventoVO, Evento>();
 		Map<String, Occurrence> ocorrencias = new HashMap<String, Occurrence>();
 		try {
-			SampleBean sampleBean = (SampleBean ) 
-					new InitialContext().lookup("java:global/bioimportear/bioimportejb/SampleBean");
+			EventoLocal eventoBean = (EventoLocal) 
+					new InitialContext().lookup("java:global/bioimportear/bioimportejb/EventoBean");
 			taxonLocal = (TaxonLocal) 
 					new InitialContext().lookup("java:global/bioimportear/bioimportejb/TaxonBean");
 			OccurrenceLocal occurrenceLocal = (OccurrenceLocal) 
@@ -118,19 +116,19 @@ public class GbifUtils implements Serializable {
 			 Iterator<Record> iterator = arq.getCore().iterator();
 			 while (iterator.hasNext()) {
 				 	Record r = iterator.next();
-					Sample sample = new Sample();
-					sample.setDataSet(dataset);
-					ChaveSampleVO chave = new ChaveSampleVO();
+					Evento evento = new Evento();
+					evento.setDataSet(dataset);
+					ChaveEventoVO chave = new ChaveEventoVO();
 					BigDecimal latitude = null;
 					BigDecimal longitude = null;
 					if(arq.getCore().hasTerm(DwcTerm.decimalLatitude)) { 
 						latitude = new BigDecimal(r.value(DwcTerm.decimalLatitude));
-						sample.setLatitude(latitude);
+						evento.setDecimalLatitude(latitude);
 						chave.setLatitude(latitude);
 					}
 					if(arq.getCore().hasTerm(DwcTerm.decimalLongitude)) {
 						longitude = new BigDecimal(r.value(DwcTerm.decimalLongitude));
-						sample.setLongitude(longitude);
+						evento.setDecimalLatitude(longitude);
 						chave.setLongitude(longitude);
 					}
 					
@@ -139,7 +137,7 @@ public class GbifUtils implements Serializable {
 							String depthString = r.value(DwcTerm.minimumDepthInMeters);
 							if(StringUtils.isNotBlank(depthString)) {
 								BigDecimal depth = new BigDecimal(depthString);
-								sample.setDepth(depth);
+								evento.setDepth(depth);
 								chave.setDepth(depth);
 							}
 						} catch (Exception e) {
@@ -147,26 +145,31 @@ public class GbifUtils implements Serializable {
 						}
 					}
 					
-					//TODO ver se há como recuperar a data, até então sistema grava a data do sample caso não tenha a data.
-					Date dataSample = null;
+					//TODO ver se há como recuperar a data, até então sistema grava a data do evento caso não tenha a data.
+					Date dataEvento = null;
 					
 					if(arq.getCore().hasTerm(DwcTerm.eventDate)) {
 						String value = r.value(DwcTerm.eventDate);
 						if(StringUtils.isNotEmpty(value)) {
 							SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-							dataSample = sdf.parse(value);
+							dataEvento = sdf.parse(value);
 						}
 					}
 					
-					if(dataSample == null && dataset != null) {
-						dataSample = dataset.getDataAlt().getTime();
+					if(dataEvento == null && dataset != null) {
+						dataEvento = dataset.getDataAlt().getTime();
 					}
-					sample.setDt(dataSample);
-					chave.setData(dataSample);
 					
-					Sample aux = samples.get(chave);
+					if(dataEvento != null) {
+						Calendar dt = Calendar.getInstance();
+						dt.setTime(dataEvento);
+						evento.setEventDate(dt);
+					}
+					chave.setData(dataEvento);
+					
+					Evento aux = eventos.get(chave);
 					if(aux != null) {
-						sample = aux;
+						evento = aux;
 					}
 					Occurrence o = new Occurrence();
 					
@@ -275,12 +278,12 @@ public class GbifUtils implements Serializable {
 			    	}
 			    	
 			    	
-			    	o.setSample(sample);
-			    	//sample.addOccurrences(o);
-			    	samples.put(chave, sample);
-			    	sample = sampleBean.salvar(sample);
+			    	o.setEvento(evento);
+			    	//evento.addOccurrences(o);
+			    	eventosChave.put(chave, evento);
+			    	evento = eventoBean.salvarEvento(evento);
 			    	
-			    	o.setSample(sample);
+			    	o.setEvento(evento);
 			    	o = occurrenceLocal.salvarOccurrence(o);
 			    	ocorrencias.put(o.getOccurrenceId(), o);
 			    	
@@ -301,10 +304,10 @@ public class GbifUtils implements Serializable {
 			}
 		}
 		
-		SampleOcorrenceVO sampleOcorrenceVO = new SampleOcorrenceVO();
-		sampleOcorrenceVO.setSamples(samples.values());
-		sampleOcorrenceVO.setOcorrencias(ocorrencias);
-		return sampleOcorrenceVO;  
+		EventoOcorrenceVO eventoOcorrenceVO = new EventoOcorrenceVO();
+		eventoOcorrenceVO.setEventos(eventos.values());
+		eventoOcorrenceVO.setOcorrencias(ocorrencias);
+		return eventoOcorrenceVO;  
 	}
 	private Date dataCsv(String[] linha) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
@@ -540,14 +543,29 @@ public class GbifUtils implements Serializable {
 		        
 	        }
 	        
+	        
 	        File fileOcorrencias = new File(nomeArquivo + File.separator + FILE_OCCURRENCE);
-	        
-	        Archive arq = ArchiveFactory.openArchive(fileOcorrencias);
-	        
-	       
-	        
-			Collection<Sample> samples = montarSamples(arq, dataset, eventos).getSamples();
-			gravarSamples(samples);
+	        EventoOcorrenceVO eventoOcorrencia = new EventoOcorrenceVO();
+	        if(fileOcorrencias.exists()) {
+	        	Archive arq = ArchiveFactory.openArchive(fileOcorrencias);
+	        	eventoOcorrencia = montarEventos(arq, dataset, eventos);
+				
+	        	gravarEventos(eventoOcorrencia.getEventos());
+	        }
+			
+	        Map<String, List<MeasurementFacts>> medidas = null;
+	        File fileMedidas = new File(nomeArquivo + File.separator + FILE_MEASUREMENT_OR_FACTS_1);
+	        if(fileMedidas.exists()) {
+	        	
+		        Archive arqMedidas = ArchiveFactory.openArchive(fileMedidas);
+		        medidas = montarMedidas(arqMedidas, eventos, eventoOcorrencia.getOcorrencias());
+	        } else {
+	        	fileMedidas = new File(nomeArquivo + File.separator + FILE_MEASUREMENT_OR_FACTS_2);
+	        	if(fileMedidas.exists()) {
+		        	Archive arqMedidas = ArchiveFactory.openArchive(fileMedidas);
+		        	medidas = montarMedidas(arqMedidas, eventos, eventoOcorrencia.getOcorrencias());
+	        	}
+	        }
 			
 			new File(nomeDiretorio).delete();
 	        
@@ -557,7 +575,7 @@ public class GbifUtils implements Serializable {
 		}
 	}
 	
-    public Collection<Sample> processaZip(InputStream in) throws ExcecaoIntegracao {
+    public Collection<Evento> processaZip(InputStream in) throws ExcecaoIntegracao {
 	    
 	    try {
 	    	String diretorioTmp = getProp().getProperty("diretorio.temporario");
@@ -589,47 +607,47 @@ public class GbifUtils implements Serializable {
 					new InitialContext().lookup("java:global/bioimportear/bioimportejb/DataSetBean");
 	        datasetSistema = datasetLocal.salvar(datasetSistema);
 	        
-	        Map<String, Evento> eventos = null;
+	        Map<String, Evento> chaveEventos = null;
 	        File fileEventos = new File(nomeArquivo + File.separator + FILE_EVENT);
 	        if(fileEventos.exists()) {
 		        Archive arqEventos = ArchiveFactory.openArchive(fileEventos);
-		        eventos = montarEventos(arqEventos);
+		        chaveEventos = montarEventos(arqEventos);
 		        
 	        }
 	        
 	        File fileOcorrencias = new File(nomeArquivo + File.separator + FILE_OCCURRENCE);
 	        
-	        SampleOcorrenceVO sampleOcurrenceVO = null;
-	        if(fileEventos.exists()) {
+	        EventoOcorrenceVO eventoOcurrenceVO = new EventoOcorrenceVO();
+	        if(fileOcorrencias.exists()) {
 	        	Archive arq = ArchiveFactory.openArchive(fileOcorrencias);
-	        	sampleOcurrenceVO = montarSamples(arq, datasetSistema, eventos);
-				if(sampleOcurrenceVO == null) {
-					sampleOcurrenceVO = new SampleOcorrenceVO();
+	        	eventoOcurrenceVO = montarEventos(arq, datasetSistema, chaveEventos);
+				if(eventoOcurrenceVO == null) {
+					eventoOcurrenceVO = new EventoOcorrenceVO();
 				}
-				Collection<Sample> samples = sampleOcurrenceVO.getSamples();
+				Collection<Evento> eventos = eventoOcurrenceVO.getEventos();
 	        }
 	       
 	        
 			
-			//gravarSamples(samples);
+			//gravarEventos(eventos);
 			
 			Map<String, List<MeasurementFacts>> medidas = null;
 	        File fileMedidas = new File(nomeArquivo + File.separator + FILE_MEASUREMENT_OR_FACTS_1);
 	        if(fileMedidas.exists()) {
 	        	
 		        Archive arqMedidas = ArchiveFactory.openArchive(fileMedidas);
-		        medidas = montarMedidas(arqMedidas, eventos, sampleOcurrenceVO.getOcorrencias());
+		        medidas = montarMedidas(arqMedidas, chaveEventos, eventoOcurrenceVO.getOcorrencias());
 	        } else {
 	        	fileMedidas = new File(nomeArquivo + File.separator + FILE_MEASUREMENT_OR_FACTS_2);
 	        	if(fileMedidas.exists()) {
 		        	Archive arqMedidas = ArchiveFactory.openArchive(fileMedidas);
-		        	medidas = montarMedidas(arqMedidas, eventos, sampleOcurrenceVO.getOcorrencias());
+		        	medidas = montarMedidas(arqMedidas, chaveEventos, eventoOcurrenceVO.getOcorrencias());
 	        	}
 	        }
 			
 			new File(nomeDiretorio).delete();
 	        
-			return sampleOcurrenceVO.getSamples();
+			return eventoOcurrenceVO.getEventos();
 	    } catch (IOException e) {
 	        log.error(e.getMessage(), e);
 	        throw new ExcecaoIntegracao(e);
@@ -811,11 +829,13 @@ public class GbifUtils implements Serializable {
 		}
 		return eventos;  
 	}
-	public void gravarSamples(Collection<Sample> samples) throws ExcecaoIntegracao {
+	public void gravarEventos(Collection<Evento> eventos) throws ExcecaoIntegracao {
     	try {
-    		SampleBean sampleBean = (SampleBean) 
-					new InitialContext().lookup("java:global/bioimportear/bioimportejb/SampleBean");
-			sampleBean.salvar(new ArrayList<Sample>(samples));
+    		EventoLocal eventoBean = (EventoLocal) 
+					new InitialContext().lookup("java:global/bioimportear/bioimportejb/EventoBean");
+    		for(Evento e : eventos) {
+    			eventoBean.salvarEvento(e);
+    		}
 		} catch (NamingException e) {
 			log.error(e.getMessage(), e);
 			Util.montaMensagemErroSemFlashRedirect("Erro ao importar arquivo", null);

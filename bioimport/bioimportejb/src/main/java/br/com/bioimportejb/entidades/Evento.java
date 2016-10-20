@@ -10,8 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity
 @Table(name="biotecmar.evento")
@@ -27,19 +32,19 @@ public class Evento implements Serializable {
 	@Column(name="event_id")
 	private String eventID;
 	
-	@Column(name="sampling_protocol")
+	@Column(name="sampling_protocol", columnDefinition="text")
 	private String samplingProtocol;	
 	
-	@Column(name="sample_size_value")
+	@Column(name="sample_size_value", columnDefinition="text")
 	private String sampleSizeValue;	
 	
-	@Column(name="sample_size_unit")
+	@Column(name="sample_size_unit", columnDefinition="text")
 	private String sampleSizeUnit;
 	
 	@Column(name="event_date")
 	private Calendar eventDate;	
 	
-	@Column(name="habitat")
+	@Column(name="habitat", columnDefinition="text")
 	private String habitat;	
 	
 	@Column(name="country_code")
@@ -57,12 +62,20 @@ public class Evento implements Serializable {
 	@Column(name="coord_uncertainty_meters")
 	private Integer coordinateUncertaintyInMeters;	
 	
-	@Column(name="foot_print_wkt")
+	@Column(name="foot_print_wkt", columnDefinition="text")
 	private String footprintWKT;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="evento")
 	private Set<Occurrence> occurrences;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="id_dataset", referencedColumnName="id_dataset")
+	private DataSet dataSet;
 
+	private BigDecimal depth;
+	
 	public Long getIdEvento() {
 		return idEvento;
 	}
@@ -176,6 +189,19 @@ public class Evento implements Serializable {
 	public void setAnalysis(Set<Occurrence> occurrences) {
 		this.occurrences = occurrences;
 	}
+	
+
+	public DataSet getDataSet() {
+		return dataSet;
+	}
+
+	public void setDataSet(DataSet dataSet) {
+		this.dataSet = dataSet;
+	}
+
+	public void setOccurrences(Set<Occurrence> occurrences) {
+		this.occurrences = occurrences;
+	}
 
 	@Override
 	public int hashCode() {
@@ -200,6 +226,14 @@ public class Evento implements Serializable {
 		} else if (!idEvento.equals(other.idEvento))
 			return false;
 		return true;
+	}
+
+	public BigDecimal getDepth() {
+		return depth;
+	}
+
+	public void setDepth(BigDecimal depth) {
+		this.depth = depth;
 	}
 
 }

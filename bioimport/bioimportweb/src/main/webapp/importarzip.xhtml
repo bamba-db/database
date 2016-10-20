@@ -45,23 +45,23 @@
 		   <h:outputText id="arquivoImportado" value="#{importacaoZipMB.file.fileName}" rendered="#{importacaoZipMB.file ne null}"/>
 		   <p:spacer width="10"/>
 		   <h:commandButton id="botaoImportar" rendered="#{importacaoZipMB.file ne null}" value="Importar" ajax="false" 
-		   	actionListener="#{importacaoZipMB.importar()}" styleClass="btn btn-default" update="divTabelaSamples, tabelaSamples, :dialogErro" process="@this"/>
+		   	actionListener="#{importacaoZipMB.importar()}" styleClass="btn btn-default" update="divTabelaEventos, tabelaEventos, :dialogErro" process="@this"/>
 		    
-		   <h:panelGroup id="divTabelaSamples" layout="block" styleClass="table-responsive">
-			   <h:dataTable rendered="#{! empty importacaoZipMB.listaSamples}" id="tabelaSamples" value="#{importacaoZipMB.listaSamples}" var="sample" styleClass="table table-striped">
+		   <h:panelGroup id="divTabelaEventos" layout="block" styleClass="table-responsive">
+			   <h:dataTable rendered="#{! empty importacaoZipMB.listaEventos}" id="tabelaEventos" value="#{importacaoZipMB.listaEventos}" var="evento" styleClass="table table-striped">
 			   		<p:column headerText="Latitude" >
 			   			<f:facet name="header">Latitude</f:facet>
-			   			<h:outputText value="#{sample.latitude}" />
+			   			<h:outputText value="#{evento.decimalLatitude}" />
 			   		</p:column>
 			   		
 			   		<p:column headerText="Longitude">
 			   			<f:facet name="header">Longitude</f:facet>
-			   			<h:outputText value="#{sample.longitude}" />
+			   			<h:outputText value="#{evento.decimalLongitude}" />
 			   		</p:column>
 			   		
 			   		<p:column headerText="Profundidade">
 			   			<f:facet name="header">Profundidade</f:facet>
-			   			<h:outputText value="#{sample.depth}" />
+			   			<h:outputText value="#{evento.depth}" />
 			   		</p:column>
 			   </h:dataTable> 
 		   </h:panelGroup>

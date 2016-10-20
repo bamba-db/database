@@ -74,16 +74,16 @@ public class DataSet implements Serializable{
 	@Column(name="sub_type")
 	private String subtype;
 	
-	@Column(name="title")
+	@Column(name="title", columnDefinition="text")
 	private String title;
 	
-	@Column(name="alias")
+	@Column(name="alias", columnDefinition="text")
 	private String alias;
 	
-	@Column(name="abbreviation")
+	@Column(name="abbreviation", columnDefinition="text")
 	private String abbreviation;
 	
-	@Column(name="description")
+	@Column(name="description", columnDefinition="text")
 	private String description;
 	
 	@Column(name="language_")
@@ -116,10 +116,10 @@ public class DataSet implements Serializable{
 	@Column(name="project")
 	private String project;
 	
-	@Column(name="purpose")
+	@Column(name="purpose", columnDefinition="text")
 	private String purpose;
 	
-	@Column(name="additionalInfo")
+	@Column(name="additionalInfo", columnDefinition="text")
 	private String additionalInfo;
 
 	@OneToMany(mappedBy="dataSet", cascade=CascadeType.ALL)

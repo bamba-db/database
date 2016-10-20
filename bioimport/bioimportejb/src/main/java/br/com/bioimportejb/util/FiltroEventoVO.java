@@ -17,6 +17,8 @@ public class FiltroEventoVO implements Serializable {
 	private BigDecimal decimalLatitude;	
 	
 	private BigDecimal decimalLongitude;
+	
+	private BigDecimal depth;
 
 	public Long getIdEvento() {
 		return idEvento;
@@ -48,6 +50,14 @@ public class FiltroEventoVO implements Serializable {
 
 	public void setDecimalLongitude(BigDecimal decimalLongitude) {
 		this.decimalLongitude = decimalLongitude;
+	}
+
+	public BigDecimal getDepth() {
+		return depth;
+	}
+
+	public void setDepth(BigDecimal depth) {
+		this.depth = depth;
 	}
 	
 }

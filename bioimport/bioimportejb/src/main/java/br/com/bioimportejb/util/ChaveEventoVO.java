@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class ChaveSampleVO implements Serializable {
+public class ChaveEventoVO implements Serializable {
 
 	private static final long serialVersionUID = -6717953093898579303L;
 
@@ -56,7 +56,7 @@ public class ChaveSampleVO implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ChaveSampleVO other = (ChaveSampleVO) obj;
+		ChaveEventoVO other = (ChaveEventoVO) obj;
 		if (data == null) {
 			if (other.data != null)
 				return false;

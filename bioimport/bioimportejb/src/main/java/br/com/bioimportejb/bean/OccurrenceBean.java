@@ -1,5 +1,7 @@
 package br.com.bioimportejb.bean;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,6 +11,8 @@ import br.com.bioimportejb.bean.interfaces.OccurrenceLocal;
 import br.com.bioimportejb.dao.OccurrenceDAO;
 import br.com.bioimportejb.entidades.Occurrence;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
+import br.com.bioimportejb.util.FiltroOccurrenceVO;
+import br.com.bioimportejb.util.OccurrenceVO;
 import br.com.daofabrica.excecoes.ExcecaoGenerica;
 import br.com.daofabrica.fabrica.DAOFabrica;
 import br.com.daofabrica.fabrica.DAOFabricaImpl;
@@ -38,6 +42,15 @@ public class OccurrenceBean implements OccurrenceLocal {
 			} else {
 				return getOccurrenceDAO().mesclar(o);
 			}
+		} catch (ExcecaoGenerica e) {
+			throw new ExcecaoIntegracao(e);
+		}
+	}
+
+	@Override
+	public List<OccurrenceVO> listarOccurrences(FiltroOccurrenceVO filtro) throws ExcecaoIntegracao {
+		try {
+			return getOccurrenceDAO().listarOccurrence(filtro);
 		} catch (ExcecaoGenerica e) {
 			throw new ExcecaoIntegracao(e);
 		}

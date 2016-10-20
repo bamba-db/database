@@ -21,16 +21,11 @@ import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.bioimportejb.bean.EventoBean;
-import br.com.bioimportejb.bean.SampleBean;
 import br.com.bioimportejb.bean.interfaces.EventoLocal;
 import br.com.bioimportejb.entidades.Evento;
-import br.com.bioimportejb.entidades.Sample;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
 import br.com.bioimportejb.util.FiltroEventoVO;
-import br.com.bioimportejb.util.FiltroSampleVO;
 
 @Path("/eventos/")
 @Named
@@ -51,7 +46,7 @@ public class EventosRest implements Serializable {
 			 @QueryParam("decimalLatitude") String decimalLatitude, 
 			 @QueryParam("decimalLongitude") String decimalLongitude,
 			 @QueryParam("eventDate") String eventDate,
-			 @QueryParam("longitude") String longitude
+			 @QueryParam("depth") String depth
 			 ) throws ExcecaoIntegracao {
 		 
 		try {
@@ -70,6 +65,9 @@ public class EventosRest implements Serializable {
 				filtro.setDecimalLongitude(new BigDecimal(decimalLongitude));
 			}
 			
+			if(StringUtils.isNotEmpty(depth)) {
+				filtro.setDepth(new BigDecimal(depth));
+			}
 			
 			if(StringUtils.isNotEmpty(eventDate)) {
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

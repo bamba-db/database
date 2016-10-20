@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
@@ -50,11 +51,13 @@ public class MeasurementFacts implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="id_occurrence", referencedColumnName="id")
+	@JsonIgnore
 	private Occurrence occurrence;
 	
 	@ManyToOne
 	@JoinColumn(name="id_evento", referencedColumnName="id_evento")
 	@ForeignKey(name="FK_MEASUREMENT_EVENTO")
+	@JsonIgnore
 	private Evento evento;
 
 	public Long getIdMeasurementFacts() {

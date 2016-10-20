@@ -7,22 +7,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 import br.com.bioimportejb.entidades.Occurrence;
-import br.com.bioimportejb.entidades.Sample;
+import br.com.bioimportejb.entidades.Evento;
 
-public class SampleOcorrenceVO implements Serializable {
+public class EventoOcorrenceVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Collection<Sample> samples = new ArrayList<Sample>();
+	private Collection<Evento> eventos = new ArrayList<Evento>();
 
 	private Map<String, Occurrence> ocorrencias = new HashMap<String, Occurrence>();
 
-	public Collection<Sample> getSamples() {
-		return samples;
+	public Collection<Evento> getEventos() {
+		return eventos;
 	}
 
-	public void setSamples(Collection<Sample> samples) {
-		this.samples = samples;
+	public void setEventos(Collection<Evento> eventos) {
+		this.eventos = eventos;
 	}
 
 	public Map<String, Occurrence> getOcorrencias() {

@@ -1,5 +1,7 @@
 package br.com.bioimportejb.bean;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -9,6 +11,7 @@ import br.com.bioimportejb.bean.interfaces.MeasurementFactsLocal;
 import br.com.bioimportejb.dao.MeasurementFactsDAO;
 import br.com.bioimportejb.entidades.MeasurementFacts;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
+import br.com.bioimportejb.util.FiltroMeasurementFactsVO;
 import br.com.daofabrica.excecoes.ExcecaoGenerica;
 import br.com.daofabrica.fabrica.DAOFabrica;
 import br.com.daofabrica.fabrica.DAOFabricaImpl;
@@ -38,6 +41,15 @@ public class MeasurementFactsBean implements MeasurementFactsLocal{
 			} else {
 				return getMeasurementFactsDAO().mesclar(m);
 			}
+		} catch (ExcecaoGenerica e) {
+			throw new ExcecaoIntegracao(e);
+		}
+	}
+
+	@Override
+	public List<MeasurementFacts> listarMeasurementFactss(FiltroMeasurementFactsVO filtro) throws ExcecaoIntegracao {
+		try {
+			return getMeasurementFactsDAO().listar(filtro);
 		} catch (ExcecaoGenerica e) {
 			throw new ExcecaoIntegracao(e);
 		}

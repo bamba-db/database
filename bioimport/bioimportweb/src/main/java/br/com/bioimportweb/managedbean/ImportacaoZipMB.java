@@ -13,7 +13,7 @@ import org.primefaces.model.UploadedFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.bioimportejb.entidades.Sample;
+import br.com.bioimportejb.entidades.Evento;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
 import br.com.bioimportweb.gbif.api.utils.GbifUtils;
 import br.com.bioimportweb.util.Util;
@@ -26,7 +26,7 @@ public class ImportacaoZipMB implements Serializable {
 
 	private UploadedFile file;
 
-	private ArrayList<Sample> listaSamples = new ArrayList<Sample>();
+	private ArrayList<Evento> listaEventos = new ArrayList<Evento>();
 
 	private Logger log = LoggerFactory.getLogger(getClass());
 
@@ -37,9 +37,9 @@ public class ImportacaoZipMB implements Serializable {
 
 	public void importar() throws ExcecaoIntegracao {
 		try {
-			listaSamples = new ArrayList<Sample>();
-			Collection<Sample> lista = GbifUtils.getInstance().processaZip(file.getInputstream());
-			listaSamples = new ArrayList<Sample>(lista);
+			listaEventos = new ArrayList<Evento>();
+			Collection<Evento> lista = GbifUtils.getInstance().processaZip(file.getInputstream());
+			listaEventos = new ArrayList<Evento>(lista);
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 			Util.montaMensagemErroSemFlashRedirect("Erro ao importar arquivo", null);
@@ -54,12 +54,12 @@ public class ImportacaoZipMB implements Serializable {
 		this.file = file;
 	}
 
-	public ArrayList<Sample> getListaSamples() {
-		return listaSamples;
+	public ArrayList<Evento> getListaEventos() {
+		return listaEventos;
 	}
 
-	public void setListaSamples(ArrayList<Sample> listaSamples) {
-		this.listaSamples = listaSamples;
+	public void setListaEventos(ArrayList<Evento> listaEventos) {
+		this.listaEventos = listaEventos;
 	}
 	
 	

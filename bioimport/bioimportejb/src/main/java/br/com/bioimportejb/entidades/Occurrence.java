@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.ForeignKey;
 
 
@@ -34,16 +35,16 @@ public class Occurrence implements Serializable {
 	@SequenceGenerator(name="pk_fish_sequence",sequenceName="biotecmar.fish_assembly_analysis_id_seq", allocationSize=1)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_fish_sequence")
 	@Column(name="id", unique=true, nullable=false)
-	private Integer id;
+	private Long id;
 
 	private BigDecimal abundance;
 
-	//bi-directional one-to-one association to Sample
-	@ManyToOne
-	@JoinColumn(name="id_sample")
-	@XmlTransient
-	@JsonBackReference
-	private Sample sample;
+//	//bi-directional one-to-one association to Sample
+//	@ManyToOne
+//	@JoinColumn(name="id_sample")
+//	@XmlTransient
+//	@JsonBackReference
+//	private Sample sample;
 
 	//bi-directional many-to-one association to Taxon
 	@ManyToOne
@@ -54,7 +55,7 @@ public class Occurrence implements Serializable {
 	@JoinColumn(name="id_evento", referencedColumnName="id_evento")
 	@ForeignKey(name="FK_FISH_EVENTO")
 	@XmlTransient
-	@JsonBackReference
+	@JsonIgnore
 	private Evento evento;
 	
 	@Column(name="occurrence_id")
@@ -63,11 +64,11 @@ public class Occurrence implements Serializable {
 	public Occurrence() {
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -79,13 +80,13 @@ public class Occurrence implements Serializable {
 		this.abundance = abundance;
 	}
 
-	public Sample getSample() {
-		return this.sample;
-	}
-
-	public void setSample(Sample sample) {
-		this.sample = sample;
-	}
+//	public Sample getSample() {
+//		return this.sample;
+//	}
+//
+//	public void setSample(Sample sample) {
+//		this.sample = sample;
+//	}
 
 	public Taxon getTaxon() {
 		return this.taxon;
