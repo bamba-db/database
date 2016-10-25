@@ -1,12 +1,12 @@
 package org.gbif.registry.ws.client;
 
 
+import org.bioimport.gbif.registry.ws.client.guice.RegistryWs;
 import org.gbif.api.model.common.paging.Pageable;
 import org.gbif.api.model.common.paging.PagingResponse;
 import org.gbif.api.model.occurrence.Download;
 import org.gbif.api.model.registry.DatasetOccurrenceDownloadUsage;
 import org.gbif.api.service.registry.OccurrenceDownloadService;
-import org.gbif.registry.ws.client.guice.RegistryWs;
 import org.gbif.ws.client.BaseWsGetClient;
 
 import java.util.Set;

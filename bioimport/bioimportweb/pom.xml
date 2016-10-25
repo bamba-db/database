@@ -189,13 +189,14 @@
 			<groupId>org.gbif</groupId>
 			<artifactId>gbif-common-ws</artifactId>
 			<exclusions>
-				<exclusion>
-					<artifactId>validation-api</artifactId>
-					<groupId>javax.validation</groupId>
-				</exclusion>
+				
 				<exclusion>
 					<artifactId>jackson-core-asl</artifactId>
 					<groupId>org.codehaus.jackson</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.gbif</groupId>
+					<artifactId>gbif-api</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -203,6 +204,12 @@
 		<dependency>
 			<groupId>org.gbif</groupId>
 			<artifactId>gbif-common-service</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.gbif</groupId>
+					<artifactId>gbif-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		
 		<dependency>
@@ -215,8 +222,21 @@
     		<groupId>org.gbif.registry</groupId>
     		<artifactId>registry-metadata</artifactId>
   			<version>2.50-SNAPSHOT</version>
-  		</dependency>
+  			<exclusions>
+  				<exclusion>
+  					<groupId>org.gbif</groupId>
+  					<artifactId>gbif-api</artifactId>
+  				</exclusion>
+  			</exclusions>
+		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.vividsolutions/jts -->
+		<dependency>
+		    <groupId>com.vividsolutions</groupId>
+		    <artifactId>jts</artifactId>
+		    <version>1.13</version>
+		</dependency>
+				
   
 		
     </dependencies>

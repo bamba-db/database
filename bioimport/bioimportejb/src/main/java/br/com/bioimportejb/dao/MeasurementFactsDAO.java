@@ -4,8 +4,8 @@ import java.util.List;
 
 import br.com.bioimportejb.entidades.MeasurementFacts;
 import br.com.bioimportejb.util.FiltroMeasurementFactsVO;
-import br.com.daofabrica.dao.DAOGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.dao.DAOGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public interface MeasurementFactsDAO extends DAOGenerico<MeasurementFacts, Long>{
 

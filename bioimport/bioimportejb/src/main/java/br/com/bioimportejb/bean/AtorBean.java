@@ -10,13 +10,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
-import br.com.daofabrica.fabrica.DAOFabrica;
-import br.com.daofabrica.fabrica.DAOFabricaImpl;
 import br.com.bioimportejb.dao.AtorDAO;
 import br.com.bioimportejb.entidades.Ator;
 import br.com.bioimportejb.enumerator.PerfilEnum;
 import br.com.bioimportejb.service.AtorService;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.fabrica.DAOFabrica;
+import br.com.bioimportejb.daofabrica.fabrica.DAOFabricaImpl;
 
 @Stateless
 public class AtorBean implements AtorService, Serializable{

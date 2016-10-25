@@ -9,8 +9,8 @@ import org.hibernate.Query;
 
 import br.com.bioimportejb.dao.DataSetDAO;
 import br.com.bioimportejb.entidades.DataSet;
-import br.com.daofabrica.crud.CRUDGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.crud.CRUDGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public class DataSetCRUD extends CRUDGenerico<DataSet, String> implements DataSetDAO, Serializable{
 

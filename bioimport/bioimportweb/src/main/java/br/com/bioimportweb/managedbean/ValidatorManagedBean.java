@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
 import br.com.bioimportejb.service.AtorService;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
     
 @ManagedBean(name="validatorMB")
 public class ValidatorManagedBean implements Serializable {  

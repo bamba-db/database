@@ -5,8 +5,8 @@ import java.util.List;
 import br.com.bioimportejb.entidades.Occurrence;
 import br.com.bioimportejb.util.FiltroOccurrenceVO;
 import br.com.bioimportejb.util.OccurrenceVO;
-import br.com.daofabrica.dao.DAOGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.dao.DAOGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public interface OccurrenceDAO extends DAOGenerico<Occurrence, Long>{
 

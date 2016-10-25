@@ -4,8 +4,8 @@
 //
 //import br.com.bioimportejb.entidades.Sample;
 //import br.com.bioimportejb.util.FiltroSampleVO;
-//import br.com.daofabrica.dao.DAOGenerico;
-//import br.com.daofabrica.excecoes.ExcecaoGenerica;
+//import br.com.bioimportejb.daofabrica.dao.DAOGenerico;
+//import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 //
 //public interface SampleDAO extends DAOGenerico<Sample, Long>{
 //

@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
 import br.com.bioimportejb.entidades.Ator;
 import br.com.bioimportejb.enumerator.PerfilEnum;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 @Local
 public interface AtorService{

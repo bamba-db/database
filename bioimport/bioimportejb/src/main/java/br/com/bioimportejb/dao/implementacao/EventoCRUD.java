@@ -2,17 +2,17 @@ package br.com.bioimportejb.dao.implementacao;
 
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
 import br.com.bioimportejb.dao.EventoDAO;
+import br.com.bioimportejb.daofabrica.crud.CRUDGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 import br.com.bioimportejb.entidades.Evento;
 import br.com.bioimportejb.util.FiltroEventoVO;
-import br.com.daofabrica.crud.CRUDGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+
 
 public class EventoCRUD extends CRUDGenerico<Evento, Long> implements EventoDAO, Serializable {
 
@@ -36,7 +36,7 @@ public class EventoCRUD extends CRUDGenerico<Evento, Long> implements EventoDAO,
 		try {
 			StringBuilder hql = new StringBuilder();
 			hql.append("select distinct evento from Evento as evento ");
-//			hql.append(" left join fetch evento.occurrences as occurrences ");
+			hql.append(" left join fetch evento.occurrences as occurrences ");
 //			hql.append(" left join fetch occurrences.taxon as taxon ");
 //			hql.append(" left join fetch occurrences.sample s ");
 //			hql.append(" left join fetch s.abioticAnalysi as abioticAnalysi ");

@@ -15,7 +15,7 @@ import br.com.bioimportejb.service.AtorService;
 import br.com.bioimportejb.util.EncriptarMD5;
 import br.com.bioimportweb.autenticacao.AuthenticationService;
 import br.com.bioimportweb.util.Util;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
     
 @ManagedBean(name="atorMB")
 @ViewScoped

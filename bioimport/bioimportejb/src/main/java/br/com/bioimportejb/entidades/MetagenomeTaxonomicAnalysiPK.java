@@ -1,7 +1,8 @@
 package br.com.bioimportejb.entidades;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Embeddable;
 
 /**
  * The primary key class for the metagenome_taxonomic_analysis database table.

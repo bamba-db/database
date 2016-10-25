@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.GrantedAuthorityImpl;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import br.com.bioimportejb.entidades.Ator;
 
@@ -22,7 +22,7 @@ private static final long serialVersionUID = -448422158890048086L;
 	}
 	
 	public Autenticacao(String role, Authentication authentication){
-		this.grantedAuthority = new GrantedAuthorityImpl(role);
+		this.grantedAuthority = new SimpleGrantedAuthority(role);
 		this.authentication = authentication;
 	}
 	

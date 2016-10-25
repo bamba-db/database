@@ -13,6 +13,7 @@ package org.gbif.registry.ws.client;
  */
 
 
+import org.bioimport.gbif.registry.ws.client.guice.RegistryWs;
 import org.gbif.api.model.common.paging.Pageable;
 import org.gbif.api.model.common.paging.PagingResponse;
 import org.gbif.api.model.registry.Dataset;
@@ -20,7 +21,6 @@ import org.gbif.api.model.registry.Installation;
 import org.gbif.api.model.registry.Organization;
 import org.gbif.api.service.registry.OrganizationService;
 import org.gbif.api.vocabulary.Country;
-import org.gbif.registry.ws.client.guice.RegistryWs;
 import org.gbif.ws.client.QueryParamBuilder;
 
 import java.util.UUID;

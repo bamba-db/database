@@ -3,10 +3,10 @@ package br.com.bioimportejb.dao;
 
 import java.util.List;
 
-import br.com.daofabrica.dao.DAOGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
 import br.com.bioimportejb.entidades.Ator;
 import br.com.bioimportejb.enumerator.PerfilEnum;
+import br.com.bioimportejb.daofabrica.dao.DAOGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public interface AtorDAO extends DAOGenerico<Ator, Long>{
 

@@ -13,8 +13,8 @@
 //import br.com.bioimportejb.dao.SampleDAO;
 //import br.com.bioimportejb.entidades.Sample;
 //import br.com.bioimportejb.util.FiltroSampleVO;
-//import br.com.daofabrica.crud.CRUDGenerico;
-//import br.com.daofabrica.excecoes.ExcecaoGenerica;
+//import br.com.bioimportejb.daofabrica.crud.CRUDGenerico;
+//import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 //
 //public class SampleCRUD extends CRUDGenerico<Sample, Long> implements SampleDAO, Serializable{
 //

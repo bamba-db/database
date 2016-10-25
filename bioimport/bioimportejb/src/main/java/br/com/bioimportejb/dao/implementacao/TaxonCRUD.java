@@ -9,8 +9,8 @@ import org.hibernate.Query;
 import br.com.bioimportejb.dao.TaxonDAO;
 import br.com.bioimportejb.entidades.Taxon;
 import br.com.bioimportejb.util.ChaveTaxonVO;
-import br.com.daofabrica.crud.CRUDGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.crud.CRUDGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public class TaxonCRUD extends CRUDGenerico<Taxon, Long> implements TaxonDAO, Serializable{
 

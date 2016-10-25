@@ -16,7 +16,7 @@ import br.com.bioimportejb.entidades.Ator;
 import br.com.bioimportejb.service.ProvedorAutenticacaoService;
 import br.com.bioimportejb.util.EncriptarMD5;
 import br.com.bioimportweb.managedbean.SessaoManagedBean;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public class ProvedorAutenticacao implements AuthenticationProvider{
 	

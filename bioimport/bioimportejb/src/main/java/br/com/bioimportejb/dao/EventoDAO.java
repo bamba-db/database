@@ -4,8 +4,8 @@ import java.util.List;
 
 import br.com.bioimportejb.entidades.Evento;
 import br.com.bioimportejb.util.FiltroEventoVO;
-import br.com.daofabrica.dao.DAOGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.dao.DAOGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public interface EventoDAO extends DAOGenerico<Evento, Long>{
 

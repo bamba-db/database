@@ -1,11 +1,9 @@
 package br.com.bioimportejb.entidades;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,7 +20,6 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 
 @Entity
 @Table(name="biotecmar.dataset")

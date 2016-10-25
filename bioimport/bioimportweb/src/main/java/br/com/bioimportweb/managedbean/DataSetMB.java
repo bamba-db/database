@@ -31,8 +31,12 @@ public class DataSetMB implements Serializable {
 	private DataSetLocal dataSetLocal;
 	
 	@PostConstruct
-	public void carregar() throws ExcecaoIntegracao {
-		lista = dataSetLocal.listarDataSet();
+	public void carregar() {
+		try {
+			lista = dataSetLocal.listarDataSet();
+		} catch (ExcecaoIntegracao e) {
+			
+		}
 	}
 
 	public void adicionarDataSet() throws ExcecaoIntegracao {

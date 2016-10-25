@@ -3,8 +3,8 @@ package br.com.bioimportejb.dao;
 import java.util.Calendar;
 
 import br.com.bioimportejb.entidades.DataSet;
-import br.com.daofabrica.dao.DAOGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.dao.DAOGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public interface DataSetDAO extends DAOGenerico<DataSet, String>{
 

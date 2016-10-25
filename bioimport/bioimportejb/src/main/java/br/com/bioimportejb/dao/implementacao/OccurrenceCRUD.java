@@ -13,8 +13,8 @@ import br.com.bioimportejb.dao.OccurrenceDAO;
 import br.com.bioimportejb.entidades.Occurrence;
 import br.com.bioimportejb.util.FiltroOccurrenceVO;
 import br.com.bioimportejb.util.OccurrenceVO;
-import br.com.daofabrica.crud.CRUDGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.crud.CRUDGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public class OccurrenceCRUD extends CRUDGenerico<Occurrence, Long> implements OccurrenceDAO, Serializable {
 

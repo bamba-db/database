@@ -13,6 +13,7 @@ package org.gbif.registry.ws.client;
  */
 
 
+import org.bioimport.gbif.registry.ws.client.guice.RegistryWs;
 import org.gbif.api.model.common.paging.Pageable;
 import org.gbif.api.model.common.paging.PagingResponse;
 import org.gbif.api.model.registry.Dataset;
@@ -20,7 +21,6 @@ import org.gbif.api.model.registry.Installation;
 import org.gbif.api.model.registry.metasync.MetasyncHistory;
 import org.gbif.api.service.registry.InstallationService;
 import org.gbif.api.service.registry.MetasyncHistoryService;
-import org.gbif.registry.ws.client.guice.RegistryWs;
 
 import java.util.UUID;
 import javax.annotation.Nullable;

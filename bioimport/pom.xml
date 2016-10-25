@@ -53,7 +53,7 @@
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
     <project.resources.sourceEncoding>${project.build.sourceEncoding}</project.resources.sourceEncoding>
-  	<spring.version>3.2.0.RELEASE</spring.version>
+  	<spring.version>4.0.2.RELEASE</spring.version>
   	<jsf.version>2.1.7</jsf.version>
   	<maven.compiler.plugin>2.3.2</maven.compiler.plugin>
   	<compiler.source>1.6</compiler.source>
@@ -113,12 +113,12 @@
             <url>http://download.java.net/maven/2</url>
         </repository>
  -->
-        <repository>
-            <id>prime-repo</id>
-            <name>Prime Technology Maven Repository</name>
-            <url>http://repository.prime.com.tr</url>
-            <layout>default</layout>
-        </repository>
+<!--         <repository> -->
+<!--             <id>prime-repo</id> -->
+<!--             <name>Prime Technology Maven Repository</name> -->
+<!--             <url>http://repository.prime.com.tr</url> -->
+<!--             <layout>default</layout> -->
+<!--         </repository> -->
        
 	    <repository>
       		<id>gbif-all</id>

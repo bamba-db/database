@@ -13,9 +13,9 @@ import br.com.bioimportejb.dao.EventoDAO;
 import br.com.bioimportejb.entidades.Evento;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
 import br.com.bioimportejb.util.FiltroEventoVO;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
-import br.com.daofabrica.fabrica.DAOFabrica;
-import br.com.daofabrica.fabrica.DAOFabricaImpl;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.fabrica.DAOFabrica;
+import br.com.bioimportejb.daofabrica.fabrica.DAOFabricaImpl;
 
 @Stateless
 public class EventoBean implements EventoLocal, Serializable{

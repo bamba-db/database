@@ -22,8 +22,8 @@ import javax.mail.internet.MimeMultipart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
 import br.com.bioimportejb.util.MensagensConstantes;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 /**
  * Classe responsavel pelo envio de e-mail.

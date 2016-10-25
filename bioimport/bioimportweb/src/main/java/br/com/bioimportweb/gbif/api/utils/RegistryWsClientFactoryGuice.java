@@ -1,10 +1,10 @@
 package br.com.bioimportweb.gbif.api.utils;
 
-import org.gbif.registry.ws.client.guice.RegistryWsClientModule;
+import java.util.Properties;
+
+import org.bioimport.gbif.registry.ws.client.guice.RegistryWsClientModule;
 import org.gbif.ws.client.guice.AnonymousAuthModule;
 import org.gbif.ws.client.guice.SingleUserAuthModule;
-
-import java.util.Properties;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

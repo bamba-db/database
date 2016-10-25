@@ -2,8 +2,8 @@ package br.com.bioimportejb.dao;
 
 import br.com.bioimportejb.entidades.Taxon;
 import br.com.bioimportejb.util.ChaveTaxonVO;
-import br.com.daofabrica.dao.DAOGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.dao.DAOGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public interface TaxonDAO extends DAOGenerico<Taxon, Long>{
 

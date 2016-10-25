@@ -13,9 +13,9 @@ import br.com.bioimportejb.bean.interfaces.DataSetLocal;
 import br.com.bioimportejb.dao.DataSetDAO;
 import br.com.bioimportejb.entidades.DataSet;
 import br.com.bioimportejb.exception.ExcecaoIntegracao;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
-import br.com.daofabrica.fabrica.DAOFabrica;
-import br.com.daofabrica.fabrica.DAOFabricaImpl;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.fabrica.DAOFabrica;
+import br.com.bioimportejb.daofabrica.fabrica.DAOFabricaImpl;
 
 @Stateless
 public class DataSetBean implements DataSetLocal, Serializable{

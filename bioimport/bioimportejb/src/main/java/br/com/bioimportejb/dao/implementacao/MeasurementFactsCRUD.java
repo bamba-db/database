@@ -12,8 +12,8 @@ import org.hibernate.transform.Transformers;
 import br.com.bioimportejb.dao.MeasurementFactsDAO;
 import br.com.bioimportejb.entidades.MeasurementFacts;
 import br.com.bioimportejb.util.FiltroMeasurementFactsVO;
-import br.com.daofabrica.crud.CRUDGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
+import br.com.bioimportejb.daofabrica.crud.CRUDGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public class MeasurementFactsCRUD extends CRUDGenerico<MeasurementFacts, Long> implements MeasurementFactsDAO, Serializable {
 

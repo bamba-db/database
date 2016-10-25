@@ -11,11 +11,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import br.com.daofabrica.crud.CRUDGenerico;
-import br.com.daofabrica.excecoes.ExcecaoGenerica;
 import br.com.bioimportejb.dao.AtorDAO;
 import br.com.bioimportejb.entidades.Ator;
 import br.com.bioimportejb.enumerator.PerfilEnum;
+import br.com.bioimportejb.daofabrica.crud.CRUDGenerico;
+import br.com.bioimportejb.daofabrica.excecoes.ExcecaoGenerica;
 
 public class AtorCRUD extends CRUDGenerico<Ator, Long> implements AtorDAO, Serializable{
 

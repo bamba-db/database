@@ -1,6 +1,9 @@
 package org.gbif.registry.ws.client;
 
 
+import java.util.List;
+
+import org.bioimport.gbif.registry.ws.client.guice.RegistryWs;
 import org.gbif.api.model.common.search.SearchResponse;
 import org.gbif.api.model.registry.search.DatasetSearchParameter;
 import org.gbif.api.model.registry.search.DatasetSearchRequest;
@@ -8,10 +11,7 @@ import org.gbif.api.model.registry.search.DatasetSearchResult;
 import org.gbif.api.model.registry.search.DatasetSuggestRequest;
 import org.gbif.api.model.registry.search.DatasetSuggestResult;
 import org.gbif.api.service.registry.DatasetSearchService;
-import org.gbif.registry.ws.client.guice.RegistryWs;
 import org.gbif.ws.client.BaseWsSuggestClient;
-
-import java.util.List;
 
 import com.google.inject.Inject;
 import com.sun.jersey.api.client.GenericType;

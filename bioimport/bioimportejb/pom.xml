@@ -32,14 +32,14 @@
             <version>6.0</version>
         </dependency>
 		<dependency>
-	    	<groupId>hibernate</groupId>
-	    	<artifactId>hibernate-entitymanager</artifactId>
-	    	<version>3.4.0.GA</version>
+	    	<groupId>org.hibernate</groupId>
+	    	<artifactId>hibernate-core</artifactId>
+	    	<version>3.6.4.Final</version>
 	    </dependency>
-		<dependency>
-		   <groupId>br.com.daofabrica</groupId>
-		   <artifactId>DaoFabrica</artifactId>
-		   <version>1.0.0</version>
+	    <dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>3.1.0.GA</version>
 		</dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -58,17 +58,20 @@
 			<version>2.5.0</version>
 		</dependency>
 
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.gbif</groupId> -->
+<!-- 			<artifactId>gbif-api</artifactId> -->
+<!-- 		</dependency>		 -->
 		<dependency>
-			<groupId>org.gbif</groupId>
-			<artifactId>gbif-api</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>validation-api</artifactId>
-					<groupId>javax.validation</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>		
-		
+		    <groupId>org.codehaus.jackson</groupId>
+		    <artifactId>jackson-core-asl</artifactId>
+		    <version>1.9.13</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		    <version>3.0</version>
+		</dependency>
 		
     </dependencies>
     <packaging>ejb</packaging>
