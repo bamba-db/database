@@ -218,18 +218,29 @@
 			
 		</dependency>
 		
-		<dependency>
-    		<groupId>org.gbif.registry</groupId>
-    		<artifactId>registry-metadata</artifactId>
-  			<version>2.50-SNAPSHOT</version>
-  			<exclusions>
-  				<exclusion>
-  					<groupId>org.gbif</groupId>
-  					<artifactId>gbif-api</artifactId>
-  				</exclusion>
-  			</exclusions>
-		</dependency>
+<!-- 		<dependency> -->
+<!--     		<groupId>org.gbif.registry</groupId> -->
+<!--     		<artifactId>registry-metadata</artifactId> -->
+<!--   			<version>2.50-SNAPSHOT</version> -->
+<!--   			<exclusions> -->
+<!--   				<exclusion> -->
+<!--   					<groupId>org.gbif</groupId> -->
+<!--   					<artifactId>gbif-api</artifactId> -->
+<!--   				</exclusion> -->
+<!--   			</exclusions> -->
+<!-- 		</dependency> -->
 
+		 <dependency>
+	      <groupId>org.apache.commons</groupId>
+	      <artifactId>commons-digester3</artifactId>
+	      <version>3.2</version>
+	      <exclusions>
+	        <exclusion>
+	          <artifactId>commons-logging</artifactId>
+	          <groupId>commons-logging</groupId>
+	        </exclusion>
+	      </exclusions>
+	    </dependency>
 		<!-- https://mvnrepository.com/artifact/com.vividsolutions/jts -->
 		<dependency>
 		    <groupId>com.vividsolutions</groupId>

@@ -7,18 +7,14 @@
                                  http://www.springframework.org/schema/security
                                  http://www.springframework.org/schema/security/spring-security.xsd">
  	
- 	<global-method-security secured-annotations="enabled" jsr250-annotations="enabled"/>
-	<http auto-config="true" use-expressions="true">
+ 	
+<!--  	<http pattern="/javax.faces.resource/**" security="none"/> -->
+<!--  	<http pattern="/resource/**" security="none"/> -->
+<!--  	<http pattern="/resources/**" security="none"/> -->
+<!--  	<http pattern="/login.jsf**" security="none"/> -->
+ 	<http pattern="/**" security="none"/>
+<!--  	<global-method-security secured-annotations="enabled" jsr250-annotations="enabled"/> -->
 	
-	<!--  
-		<intercept-url pattern="/ator/cadastroAtor**" access="hasAnyRole('ROLE_USER')" />
-		<intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN')" />
-		<intercept-url pattern="/ator/**" access="isAuthenticated()"  />
-	-->	
-		<access-denied-handler  error-page="/acessoNegado.jsf"/>
-		<form-login login-page="/index.jsf" />
-		
-	</http>
  
  
 	<beans:bean id="customAuthenticationProvider" class="br.com.bioimportweb.autenticacao.ProvedorAutenticacao" />   

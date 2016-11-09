@@ -134,7 +134,7 @@ public class Dataset
   private Date pubDate;
   private MaintenanceUpdateFrequency maintenanceUpdateFrequency;
   private String maintenanceDescription;
-  private License license;
+  private String license;
 
   @Override
   public UUID getKey() {
@@ -311,7 +311,7 @@ public class Dataset
    *
    * @see <a href="http://dev.gbif.org/issues/browse/POR-3133">POR-3133</a>
    */
-  public License getLicense() {
+  public String getLicense() {
     return license;
   }
 
@@ -325,7 +325,7 @@ public class Dataset
    * }
    * </pre>
    */
-  public void setLicense(License license) {
+  public void setLicense(String license) {
     this.license = license;
   }
 
